@@ -8,5 +8,14 @@ export const propCard = {
   price: PropTypes.number,
   rating: PropTypes.number,
   title: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  city: PropTypes.string
+};
+
+export const propReview = {
+  id: PropTypes.number,
+  hotelId: PropTypes.number,
+  comment: PropTypes.string,
+  date: PropTypes.string,
+  rating: PropTypes.number
 };

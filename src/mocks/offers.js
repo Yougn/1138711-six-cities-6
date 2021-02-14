@@ -7,7 +7,8 @@ export default [
     price: 1000,
     title: `Beautiful & luxurious studio at great location`,
     type: `apartment`,
-    rating: 4
+    rating: 2,
+    city: `Amsterdam`
   },
   {
     id: 1,
@@ -17,7 +18,8 @@ export default [
     price: 2000,
     title: `Luxurious studio at great location`,
     type: `room`,
-    rating: 6
+    rating: 3,
+    city: `Amsterdam`
   },
   {
     id: 2,
@@ -27,7 +29,8 @@ export default [
     price: 3000,
     title: `Beautiful & luxurious studio at great location`,
     type: `house`,
-    rating: 8
+    rating: 4,
+    city: `Berlin`
   },
   {
     id: 3,
@@ -37,6 +40,7 @@ export default [
     price: 4000,
     title: `Luxurious studio at great location`,
     type: `hotel`,
-    rating: 10
+    rating: 5,
+    city: `Berlin`
   }
 ];

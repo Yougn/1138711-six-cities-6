@@ -1,23 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
-import {propCard} from '../../common/propTypes';
-import {getRatingLevel} from '../../common/utils';
+import {propCard} from '../../../common/propTypes';
+import {getRatingLevel} from '../../../common/utils';
 import {Link} from 'react-router-dom';
 
-const PlaceCard = (props) => {
+const NearRoom = (props) => {
 
-  const history = useHistory();
-
-  const {offer, onMouseEnterCardId} = props;
+  const {offer} = props;
   const {id, img, isPremium, price, rating, title, type} = offer;
 
-  const handleCardMouseEnter = () => {
-    onMouseEnterCardId(id);
-  };
-
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleCardMouseEnter} id={id}>
+    <article className="cities__place-card place-card">
       { isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
@@ -50,9 +43,8 @@ const PlaceCard = (props) => {
   );
 };
 
-PlaceCard.propTypes = {
-  offer: PropTypes.shape(propCard),
-  onMouseEnterCardId: PropTypes.func.isRequired,
+NearRoom.propTypes = {
+  offer: PropTypes.shape(propCard)
 };
 
-export default PlaceCard;
+export default NearRoom;
