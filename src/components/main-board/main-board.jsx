@@ -1,14 +1,12 @@
 import React from 'react';
-import PlaceCard from '../place-card/place-card';
 import PropTypes from 'prop-types';
+import CardsList from '../cards-list/cards-list';
 
 const MainBoard = (props) => {
-  const {cardsCount} = props;
 
-  const numbers = [...Array(cardsCount)].map((e, i) => i + 1);
-  const getCards = (id) => {
-    return <PlaceCard key={id} />;
-  };
+  const {offers} = props;
+  // const numbers = [...Array(cardsCount)].map((e, i) => i + 1);
+  const cardsList = <CardsList offers={offers} />;
 
   return (
     <main className="page__main page__main--index">
@@ -69,9 +67,7 @@ const MainBoard = (props) => {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {numbers.map((number) => getCards(number))}
-            </div>
+            {cardsList}
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -84,6 +80,7 @@ const MainBoard = (props) => {
 
 MainBoard.propTypes = {
   cardsCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default MainBoard;
