@@ -34,8 +34,8 @@ const NearRoom = (props) => {
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
-        <h2 className="place-card__name" onClick={() => history.push(`/offer/:` + id)}>
-          <Link to="/">{title}</Link>
+        <h2 className="place-card__name">
+          <Link to={`/offer/:` + id}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

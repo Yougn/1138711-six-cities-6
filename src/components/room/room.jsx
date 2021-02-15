@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import NearRoom from './near-room/near-room';
 import {getRatingLevel} from '../../common/utils';
 import {propCard, propReview} from '../../common/propTypes';
+// import RoomPhoto from './room-photo/room-photo';
+import Comment from './comment/comment';
 
 const Room = (props) => {
 
   const {reviews, offers} = props;
-  const {comment, date, rating} = reviews[0];
+  const {id, img, price, rating, title, type} = offers[0];
 
   const nearRooms = offers.map((offer) => <NearRoom key={offer.id} offer={offer} />);
 
@@ -17,6 +19,7 @@ const Room = (props) => {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
+            {/* <RoomPhoto /> */}
             <div className="property__image-wrapper">
               <img className="property__image" src="img/room.jpg" alt="Photo studio" />
             </div>
@@ -44,7 +47,7 @@ const Room = (props) => {
             </div>
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                Beautiful &amp; luxurious studio at great location
+                {title}
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
@@ -58,11 +61,11 @@ const Room = (props) => {
                 <span style={{width: getRatingLevel(rating)}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">4.8</span>
+              <span className="property__rating-value rating__value">{rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                Apartment
+                {type}
               </li>
               <li className="property__feature property__feature--bedrooms">
                 3 Bedrooms
@@ -72,7 +75,7 @@ const Room = (props) => {
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;120</b>
+              <b className="property__price-value">&euro;{price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -130,33 +133,14 @@ const Room = (props) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{id + 1}</span></h2>
               <ul className="reviews__list">
-                <li className="reviews__item">
-                  <div className="reviews__user user">
-                    <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                      <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
-                    </div>
-                    <span className="reviews__user-name">
-                      Max
-                    </span>
-                  </div>
-                  <div className="reviews__info">
-                    <div className="reviews__rating rating">
-                      <div className="reviews__stars rating__stars">
-                        <span style={{width: getRatingLevel(rating)}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <p className="reviews__text">
-                      {comment}
-                    </p>
-                    <time className="reviews__time" dateTime="2019-04-24">{date}</time>
-                  </div>
-                </li>
+
+                <Comment reviews={reviews} />
+
               </ul>
 
-              { <ReviewsForm reviews={reviews} />}
+              <ReviewsForm reviews={reviews} />
 
             </section>
           </div>
@@ -168,7 +152,7 @@ const Room = (props) => {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
 
-            {nearRooms }
+            {nearRooms}
 
           </div >
         </section >

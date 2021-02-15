@@ -12,10 +12,18 @@ export const propCard = {
   city: PropTypes.string
 };
 
+const user = {
+  avatarUrl: PropTypes.string,
+  id: PropTypes.number,
+  isPro: PropTypes.bool,
+  name: PropTypes.string,
+};
+
 export const propReview = {
   id: PropTypes.number,
   hotelId: PropTypes.number,
   comment: PropTypes.string,
   date: PropTypes.string,
-  rating: PropTypes.number
+  rating: PropTypes.number,
+  user: PropTypes.shape(user)
 };

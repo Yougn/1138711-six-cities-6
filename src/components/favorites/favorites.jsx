@@ -4,19 +4,16 @@ import FavoriteLocation from './favorite-location/favorite-location';
 import {propCard} from '../../common/propTypes';
 
 const Favorites = (props) => {
-  const {offers} = props;
+  const {favoriteOffers} = props;
 
-  const cardsGroups = offers.reduce((group, offer) => {
+  const cardsGroups = favoriteOffers.reduce((group, offer) => {
     group[offer.city] = group[offer.city] || [];
     group[offer.city].push(offer);
     return group;
-  }, {});
+  }, []);
 
   const cityNames = Object.keys(cardsGroups);
-  const placeCards = Object.values(cardsGroups);
-  const totalPlaceCards = [].concat(...placeCards);
-
-  const locations = cityNames.map((name) => <FavoriteLocation key={name} name={name} offers={totalPlaceCards.filter((placeCard) => placeCard.city === name)} />);
+  const locations = cityNames.map((name) => <FavoriteLocation key={name} name={name} favoriteOffers={cardsGroups[name]} />);
 
   return (
     <main className="page__main page__main--favorites">
@@ -33,7 +30,7 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
+  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
 };
 
 export default Favorites;

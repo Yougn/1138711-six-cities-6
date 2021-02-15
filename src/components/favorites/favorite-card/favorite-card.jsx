@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {propCard} from '../../../common/propTypes';
 import {getRatingLevel} from '../../../common/utils';
+import {Link} from 'react-router-dom';
 
 const FavoriteCard = (props) => {
 
@@ -33,7 +34,7 @@ const FavoriteCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/:` + id}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

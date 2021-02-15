@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
 import {propCard} from '../../common/propTypes';
 import {getRatingLevel} from '../../common/utils';
 import {Link} from 'react-router-dom';
 
 const PlaceCard = (props) => {
-
-  const history = useHistory();
 
   const {offer, onMouseEnterCardId} = props;
   const {id, img, isPremium, price, rating, title, type} = offer;
@@ -41,8 +38,8 @@ const PlaceCard = (props) => {
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
-        <h2 className="place-card__name" onClick={() => history.push(`/offer/:` + id)}>
-          <Link to="/">{title}</Link>
+        <h2 className="place-card__name">
+          <Link to={`/offer/:` + id}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

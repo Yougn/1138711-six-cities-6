@@ -11,6 +11,8 @@ import {propCard, propReview} from '../../common/propTypes';
 const App = (props) => {
   const {cardsCount, offers, reviews} = props;
 
+  const favoriteOffers = offers.filter((offer)=> offer.isFavorite);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -21,7 +23,7 @@ const App = (props) => {
           <Login/>
         </Route>
         <Route exact path="/favorites">
-          <Favorites offers={offers} />
+          <Favorites favoriteOffers={favoriteOffers} />
         </Route>
         <Route exact path="/offer/:id">
           <Room offers={offers} reviews={reviews}/>
