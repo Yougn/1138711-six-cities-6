@@ -3,8 +3,7 @@ import Star from './star/star';
 
 const STARS_COUNT = 5;
 
-const ReviewsForm = (props) => {
-  const {reviews} = props;
+const ReviewsForm = () => {
 
   const [userReview, setUserReview] = useState(``);
   console.log(`Текущий отзыв - ` + userReview);
@@ -17,19 +16,19 @@ const ReviewsForm = (props) => {
   const [userChoise, setUserChoise] = useState(``);
   console.log(`Текущий выбор - ` + userChoise);
 
-  const handleInputChange = (evt) => {
+  const onInputChange = (evt) => {
     const choiseId = evt.target.id;
     setUserChoise(choiseId);
   };
 
-  const numbers = [...Array(STARS_COUNT)].map((_, i) => i);
+  const numbers = [...Array(STARS_COUNT)].map((_, i) => STARS_COUNT - i);
 
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
-        {numbers.map((number)=> <Star key={number} id={number} userChoise={userChoise} handleInputChange={handleInputChange} />)}
+        {numbers.map((number)=> <Star key={number} id={number} userChoise={userChoise} onInputChange={onInputChange} />)}
 
       </div>
       <textarea className="reviews__textarea form__textarea" onChange={handleTextareaChange} value={userReview} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>

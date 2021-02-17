@@ -8,7 +8,16 @@ export default [
     title: `Beautiful & luxurious studio at great location`,
     type: `apartment`,
     rating: 2,
-    city: `Amsterdam`
+    city: `Amsterdam`,
+    bedrooms: 2,
+    maxAdults: 2,
+    goods: [`Heating`, `Kitchen`, `Washing machine`, `Coffee machine`, `Dishwasher`],
+    host: {
+      avatarUrl: `img/1.png`,
+      id: 3,
+      isPro: true,
+      name: `Angelina`
+    }
   },
   {
     id: 1,
@@ -19,7 +28,16 @@ export default [
     title: `Luxurious studio at great location`,
     type: `room`,
     rating: 3,
-    city: `Amsterdam`
+    city: `Amsterdam`,
+    bedrooms: 3,
+    maxAdults: 3,
+    goods: [`Washing machine`],
+    host: {
+      avatarUrl: `img/2.png`,
+      id: 3,
+      isPro: true,
+      name: `Valentina`
+    }
   },
   {
     id: 2,
@@ -30,7 +48,16 @@ export default [
     title: `Beautiful & luxurious studio at great location`,
     type: `house`,
     rating: 4,
-    city: `Berlin`
+    city: `Berlin`,
+    bedrooms: 4,
+    maxAdults: 4,
+    goods: [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`],
+    host: {
+      avatarUrl: `img/2.png`,
+      id: 3,
+      isPro: true,
+      name: `Maria`
+    }
   },
   {
     id: 3,
@@ -41,6 +68,15 @@ export default [
     title: `Luxurious studio at great location`,
     type: `hotel`,
     rating: 5,
-    city: `Berlin`
+    city: `Berlin`,
+    bedrooms: 5,
+    maxAdults: 5,
+    goods: [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
+    host: {
+      avatarUrl: `img/2.png`,
+      id: 3,
+      isPro: true,
+      name: `Lenochka`
+    }
   }
 ];

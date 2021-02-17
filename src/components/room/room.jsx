@@ -4,40 +4,27 @@ import PropTypes from 'prop-types';
 import NearRoom from './near-room/near-room';
 import {getRatingLevel} from '../../common/utils';
 import {propCard, propReview} from '../../common/propTypes';
-// import RoomPhoto from './room-photo/room-photo';
+import RoomPhoto from './room-photo/room-photo';
+import PropertyInside from './property-inside/property-inside';
 import Comment from './comment/comment';
 
 const Room = (props) => {
 
-  const {reviews, offers} = props;
-  const {id, img, price, rating, title, type} = offers[0];
+  const {offer, nearOffers, reviews} = props;
+  const {id, img, price, rating, title, type, bedrooms, maxAdults, goods, host} = offer;
 
-  const nearRooms = offers.map((offer) => <NearRoom key={offer.id} offer={offer} />);
+  const properties = goods.map((good, index) => <PropertyInside good={good} key={index} />);
+  const comments = reviews.map((review) => <Comment key={review.id} review={review} />);
+  const nearRooms = nearOffers.map((nearOffer) => <NearRoom key={nearOffer.id} nearOffer={nearOffer} />);
 
   return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {/* <RoomPhoto /> */}
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
+
+            <RoomPhoto img={img} />
+
           </div>
         </div>
         <div className="property__container container">
@@ -68,10 +55,10 @@ const Room = (props) => {
                 {type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                3 Bedrooms
+                {bedrooms}
               </li>
               <li className="property__feature property__feature--adults">
-                Max 4 adults
+                Max {maxAdults} adults
               </li>
             </ul>
             <div className="property__price">
@@ -81,36 +68,9 @@ const Room = (props) => {
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
-                <li className="property__inside-item">
-                  Wi-Fi
-                </li>
-                <li className="property__inside-item">
-                  Washing machine
-                </li>
-                <li className="property__inside-item">
-                  Towels
-                </li>
-                <li className="property__inside-item">
-                  Heating
-                </li>
-                <li className="property__inside-item">
-                  Coffee machine
-                </li>
-                <li className="property__inside-item">
-                  Baby seat
-                </li>
-                <li className="property__inside-item">
-                  Kitchen
-                </li>
-                <li className="property__inside-item">
-                  Dishwasher
-                </li>
-                <li className="property__inside-item">
-                  Cabel TV
-                </li>
-                <li className="property__inside-item">
-                  Fridge
-                </li>
+
+                {properties}
+
               </ul>
             </div>
             <div className="property__host">
@@ -120,7 +80,7 @@ const Room = (props) => {
                   <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
-                  Angelina
+                  {host.name}
                 </span>
               </div>
               <div className="property__description">
@@ -136,11 +96,11 @@ const Room = (props) => {
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{id + 1}</span></h2>
               <ul className="reviews__list">
 
-                <Comment reviews={reviews} />
+                {comments}
 
               </ul>
 
-              <ReviewsForm reviews={reviews} />
+              <ReviewsForm />
 
             </section>
           </div>
@@ -162,8 +122,9 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
+  offer: PropTypes.shape(propCard).isRequired,
+  nearOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired
 };
 
 export default Room;

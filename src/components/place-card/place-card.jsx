@@ -39,7 +39,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/:` + id}>{title}</Link>
+          <Link to={`/offer/` + id}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -48,7 +48,7 @@ const PlaceCard = (props) => {
 };
 
 PlaceCard.propTypes = {
-  offer: PropTypes.shape(propCard),
+  offer: PropTypes.shape(propCard).isRequired,
   onMouseEnterCardId: PropTypes.func.isRequired,
 };
 

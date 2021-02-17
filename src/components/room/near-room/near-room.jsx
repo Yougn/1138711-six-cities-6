@@ -6,8 +6,8 @@ import {Link} from 'react-router-dom';
 
 const NearRoom = (props) => {
 
-  const {offer} = props;
-  const {id, img, isPremium, price, rating, title, type} = offer;
+  const {nearOffer} = props;
+  const {id, img, isPremium, price, rating, title, type} = nearOffer;
 
   return (
     <article className="cities__place-card place-card">
@@ -35,7 +35,7 @@ const NearRoom = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/:` + id}>{title}</Link>
+          <Link to={`/offer/` + id}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -44,7 +44,7 @@ const NearRoom = (props) => {
 };
 
 NearRoom.propTypes = {
-  offer: PropTypes.shape(propCard)
+  nearOffer: PropTypes.shape(propCard)
 };
 
 export default NearRoom;
