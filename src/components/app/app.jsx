@@ -9,9 +9,9 @@ import Room from '../room/room';
 import {propCard, propReview} from '../../common/propTypes';
 
 const App = (props) => {
-  const {cardsCount, offers, reviews} = props;
 
-  const favoriteOffers = offers.filter((offer)=> offer.isFavorite);
+  const {cardsCount, offers, reviews} = props;
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (
     <BrowserRouter>
@@ -20,13 +20,17 @@ const App = (props) => {
           <MainBoard cardsCount={cardsCount} offers={offers} />
         </Route>
         <Route exact path="/login">
-          <Login/>
+          <Login />
         </Route>
         <Route exact path="/favorites">
           <Favorites favoriteOffers={favoriteOffers} />
         </Route>
-        <Route exact path="/offer/:id">
-          <Room offers={offers} reviews={reviews}/>
+        <Route exact path="/offer/:id"
+          render={({match}) => {
+            const {id} = match.params;
+            const offer = offers.find((item) => item.id === +id);
+            return <Room offer={offer} nearOffers={offers.slice(0, 3)} reviews={reviews} />;
+          }}>
         </Route>
         <Route>
           <PageNotFound />

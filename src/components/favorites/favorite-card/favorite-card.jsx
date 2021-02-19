@@ -7,13 +7,13 @@ import {Link} from 'react-router-dom';
 const FavoriteCard = (props) => {
 
   const {offer} = props;
-  const {id, img, price, rating, title, type} = offer;
+  const {id, previewImage, price, rating, title, type} = offer;
 
   return (
     <article className="favorites__card place-card" id={id}>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={img} width="150" height="110" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image" />
         </a>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -34,7 +34,7 @@ const FavoriteCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/:` + id}>{title}</Link>
+          <Link to={`/offer/` + id}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

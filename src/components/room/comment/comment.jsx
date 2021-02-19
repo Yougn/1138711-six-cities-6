@@ -5,8 +5,8 @@ import {propReview} from '../../../common/propTypes';
 
 const Comment = (props) => {
 
-  const {reviews} = props;
-  const {comment, date, rating, user} = reviews[0];
+  const {review} = props;
+  const {comment, date, rating, user} = review;
 
   return (
     <li className="reviews__item">
@@ -35,7 +35,7 @@ const Comment = (props) => {
 };
 
 Comment.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired,
+  review: PropTypes.shape(propReview).isRequired,
 };
 
 export default Comment;

@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 const PlaceCard = (props) => {
 
   const {offer, onMouseEnterCardId} = props;
-  const {id, img, isPremium, price, rating, title, type} = offer;
+  const {id, previewImage, isPremium, price, rating, title, type} = offer;
 
   const handleCardMouseEnter = () => {
     onMouseEnterCardId(id);
@@ -15,10 +15,10 @@ const PlaceCard = (props) => {
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={handleCardMouseEnter} id={id}>
-      { isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
+      <div className="place-card__mark"><span>{isPremium && `Premium`}</span></div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info" >
@@ -39,7 +39,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/:` + id}>{title}</Link>
+          <Link to={`/offer/` + id}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -48,7 +48,7 @@ const PlaceCard = (props) => {
 };
 
 PlaceCard.propTypes = {
-  offer: PropTypes.shape(propCard),
+  offer: PropTypes.shape(propCard).isRequired,
   onMouseEnterCardId: PropTypes.func.isRequired,
 };
 

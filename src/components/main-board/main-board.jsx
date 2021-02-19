@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '../cards-list/cards-list';
+import Map from '../map/map';
 
 const MainBoard = (props) => {
 
   const {offers} = props;
-  // const numbers = [...Array(cardsCount)].map((e, i) => i + 1);
+
   const cardsList = <CardsList offers={offers} />;
 
   return (
@@ -70,7 +71,11 @@ const MainBoard = (props) => {
             {cardsList}
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section className="cities__map map">
+
+              <Map offers={offers} />
+
+            </section>
           </div>
         </div>
       </div>
