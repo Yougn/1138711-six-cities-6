@@ -11,8 +11,9 @@ import Comment from './comment/comment';
 const Room = (props) => {
 
   const {offer, nearOffers, reviews} = props;
-  const {id, img, price, rating, title, type, bedrooms, maxAdults, goods, host} = offer;
+  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium} = offer;
 
+  const roomsPhotos = images.map((image, index) => <RoomPhoto image={image} key={index} />);
   const properties = goods.map((good, index) => <PropertyInside good={good} key={index} />);
   const comments = reviews.map((review) => <Comment key={review.id} review={review} />);
   const nearRooms = nearOffers.map((nearOffer) => <NearRoom key={nearOffer.id} nearOffer={nearOffer} />);
@@ -23,14 +24,14 @@ const Room = (props) => {
         <div className="property__gallery-container container">
           <div className="property__gallery">
 
-            <RoomPhoto img={img} />
+            {roomsPhotos}
 
           </div>
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
             <div className="property__mark">
-              <span>Premium</span>
+              <span>{isPremium && `Premium`}</span>
             </div>
             <div className="property__name-wrapper">
               <h1 className="property__name">
@@ -77,7 +78,7 @@ const Room = (props) => {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={host} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
                   {host.name}
@@ -93,7 +94,7 @@ const Room = (props) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{id + 1}</span></h2>
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
               <ul className="reviews__list">
 
                 {comments}

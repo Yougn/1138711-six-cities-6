@@ -9,7 +9,7 @@ export const propCard = {
   rating: PropTypes.number,
   title: PropTypes.string,
   type: PropTypes.string,
-  city: PropTypes.string
+  name: PropTypes.string
 };
 
 const user = {

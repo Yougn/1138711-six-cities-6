@@ -16,7 +16,7 @@ const ReviewsForm = () => {
   const [userChoise, setUserChoise] = useState(``);
   console.log(`Текущий выбор - ` + userChoise);
 
-  const onInputChange = (evt) => {
+  const handeleInputChange = (evt) => {
     const choiseId = evt.target.id;
     setUserChoise(choiseId);
   };
@@ -28,7 +28,7 @@ const ReviewsForm = () => {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
-        {numbers.map((number)=> <Star key={number} id={number} userChoise={userChoise} onInputChange={onInputChange} />)}
+        {numbers.map((number)=> <Star key={number} id={number} userChoise={userChoise} onInputChange={handeleInputChange} />)}
 
       </div>
       <textarea className="reviews__textarea form__textarea" onChange={handleTextareaChange} value={userReview} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
