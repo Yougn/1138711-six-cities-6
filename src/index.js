@@ -8,9 +8,12 @@ const Setting = {
   CARDS_COUNT: 5
 };
 
+const city = [52.38333, 4.9];
+
 ReactDOM.render(
     <App
       cardsCount={Setting.CARDS_COUNT}
+      city={city}
       offers={offers}
       reviews={reviews}
     />,

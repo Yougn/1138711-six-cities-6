@@ -5,12 +5,11 @@ import {propCard} from '../../common/propTypes';
 
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({offers}) => {
+const Map = ({city, elements}) => {
 
   const mapRef = useRef();
 
   useEffect(() => {
-    const city = [52.38333, 4.9];
     mapRef.current = leaflet.map(`map`, {
       center: {
         lat: city[0],
@@ -32,10 +31,10 @@ const Map = ({offers}) => {
       iconSize: [30, 30]
     });
 
-    offers.forEach((offer) => {
+    elements.forEach((element) => {
       leaflet.marker({
-        lat: offer.city.location.latitude,
-        lng: offer.city.location.longitude
+        lat: element.city.location.latitude,
+        lng: element.city.location.longitude
       },
       {
         icon: customIcon
@@ -46,15 +45,16 @@ const Map = ({offers}) => {
         mapRef.current.remove();
       };
     });
-  }, [offers]);
+  }, [elements]);
 
   return (
-    <div id="map" style={{height: `750px`}} ref={mapRef}></div>
+    <div ref={mapRef}></div>
   );
 };
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
+  city: PropTypes.array.isRequired,
+  elements: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
 };
 
 export default Map;
