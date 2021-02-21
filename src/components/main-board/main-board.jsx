@@ -73,7 +73,7 @@ const MainBoard = (props) => {
           <div className="cities__right-section">
             <section className="cities__map map" id="map">
 
-              <Map city={city} elements={offers} />
+              <Map city={city} elements={offers} offer={null} />
 
             </section>
           </div>
@@ -85,7 +85,7 @@ const MainBoard = (props) => {
 
 MainBoard.propTypes = {
   cardsCount: PropTypes.number.isRequired,
-  city: PropTypes.array.isRequired,
+  city: PropTypes.arrayOf(PropTypes.number).isRequired,
   offers: PropTypes.array.isRequired
 };
 

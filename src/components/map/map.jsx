@@ -5,10 +5,9 @@ import {propCard} from '../../common/propTypes';
 
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({city, elements}) => {
+const Map = ({city, elements, offer}) => {
 
   const mapRef = useRef();
-
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
@@ -45,6 +44,20 @@ const Map = ({city, elements}) => {
         mapRef.current.remove();
       };
     });
+
+    const currentOffer = leaflet.icon({
+      iconUrl: `./img/pin-active.svg`,
+      iconSize: [30, 30]
+    });
+
+    if (offer === null) {
+      return;
+    }
+
+    leaflet.marker({lat: offer.city.location.latitude, lng: offer.city.location.longitude},
+        {icon: currentOffer})
+    .addTo(mapRef.current);
+
   }, [elements]);
 
   return (
@@ -54,7 +67,8 @@ const Map = ({city, elements}) => {
 
 Map.propTypes = {
   city: PropTypes.array.isRequired,
-  elements: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
+  elements: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
+  offer: PropTypes.shape(propCard)
 };
 
 export default Map;

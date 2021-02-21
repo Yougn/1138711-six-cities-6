@@ -29,7 +29,7 @@ const App = (props) => {
           render={({match}) => {
             const {id} = match.params;
             const offer = offers.find((item) => item.id === +id);
-            return <Room city ={city} offer={offer} nearOffers={offers.slice(0, 3)} reviews={reviews} />;
+            return <Room city ={city} offer={offer} nearOffers={offers.slice(0, 4)} reviews={reviews} />;
           }}>
         </Route>
         <Route>
@@ -42,7 +42,7 @@ const App = (props) => {
 
 App.propTypes = {
   cardsCount: PropTypes.number.isRequired,
-  city: PropTypes.array.isRequired,
+  city: PropTypes.arrayOf(PropTypes.number).isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired
 };
