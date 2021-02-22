@@ -5,7 +5,7 @@ import Map from '../map/map';
 
 const MainBoard = (props) => {
 
-  const {offers} = props;
+  const {city, offers} = props;
 
   const cardsList = <CardsList offers={offers} />;
 
@@ -71,9 +71,9 @@ const MainBoard = (props) => {
             {cardsList}
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map">
+            <section className="cities__map map" id="map">
 
-              <Map offers={offers} />
+              <Map city={city} elements={offers} offer={null} />
 
             </section>
           </div>
@@ -85,7 +85,8 @@ const MainBoard = (props) => {
 
 MainBoard.propTypes = {
   cardsCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
+  city: PropTypes.arrayOf(PropTypes.number).isRequired,
+  offers: PropTypes.array.isRequired
 };
 
 export default MainBoard;
