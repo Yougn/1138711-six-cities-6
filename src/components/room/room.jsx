@@ -109,7 +109,7 @@ const Room = (props) => {
         </div>
         <section className="property__map map" id="map">
 
-          {/* <Map city={city} elements={nearOffers} offer={offer} /> */}
+          <Map city={city} elements={nearOffers} offer={offer} />
 
         </section>
       </section>
@@ -128,7 +128,7 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  city: PropTypes.array.isRequired,
+  city: PropTypes.arrayOf(PropTypes.number).isRequired,
   offer: PropTypes.shape(propCard).isRequired,
   nearOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired
