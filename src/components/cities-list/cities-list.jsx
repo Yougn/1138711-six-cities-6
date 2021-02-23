@@ -56,8 +56,8 @@ CitiesList.propTypes = {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    changeCityName: (name) => {
-      dispatch(changeCityAC(name));
+    changeCityName: (cityName) => {
+      dispatch(changeCityAC(cityName));
     }
   };
 };

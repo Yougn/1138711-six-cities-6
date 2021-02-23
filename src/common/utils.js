@@ -12,3 +12,5 @@ export const CityName = {
   HAMBURG: `Hamburg`,
   DUSSELDORF: `Dusseldorf`
 };
+
+export const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
