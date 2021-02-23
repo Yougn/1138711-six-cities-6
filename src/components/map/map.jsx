@@ -9,6 +9,11 @@ const Map = ({city, elements, offer}) => {
 
   const mapRef = useRef();
   useEffect(() => {
+    const container = leaflet.DomUtil.get(`map`);
+    if (container !== null) {
+      // eslint-disable-next-line camelcase
+      container._leaflet_id = null;
+    }
     mapRef.current = leaflet.map(`map`, {
       center: {
         lat: city[0],
