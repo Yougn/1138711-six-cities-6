@@ -8,11 +8,6 @@ import offers from './mocks/offers';
 import reviews from './mocks/reviews';
 import {reducer} from './redux/reducer';
 
-const Setting = {
-  CARDS_COUNT: 5
-};
-
-const city = [52.38333, 4.9];
 
 const store = createStore(
     reducer,
@@ -22,8 +17,6 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
       <App
-        cardsCount={Setting.CARDS_COUNT}
-        city={city}
         offers={offers}
         reviews={reviews}
       />

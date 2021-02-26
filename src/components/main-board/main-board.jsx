@@ -5,10 +5,11 @@ import Map from '../map/map';
 import {connect} from 'react-redux';
 import CitiesList from '../cities-list/cities-list';
 import SortOffers from '../sort-offers/sort-offers';
+import {propCard} from '../../common/propTypes';
 
 const MainBoard = (props) => {
 
-  const {city, name, offers} = props;
+  const {name, offers} = props;
 
   const filteredOffers = offers.filter((offer) => offer.name === name);
 
@@ -28,7 +29,7 @@ const MainBoard = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredOffers.length} places to stay in Amsterdam</b>
+            <b className="places__found">{filteredOffers.length} places to stay in {name}</b>
 
             <SortOffers />
 
@@ -38,7 +39,7 @@ const MainBoard = (props) => {
           <div className="cities__right-section">
             <section className="cities__map map" id="map">
 
-              <Map city={city} elements={filteredOffers} offer={null} />
+              <Map elements={filteredOffers} offer={null} />
 
             </section>
           </div>
@@ -49,12 +50,12 @@ const MainBoard = (props) => {
 };
 
 MainBoard.propTypes = {
-  city: PropTypes.arrayOf(PropTypes.number).isRequired,
+  city: PropTypes.arrayOf(PropTypes.strin).isRequired,
   name: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
 };
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     name: state.name,
     offers: state.offers

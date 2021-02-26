@@ -10,14 +10,14 @@ import {propCard, propReview} from '../../common/propTypes';
 
 const App = (props) => {
 
-  const {city, offers, reviews} = props;
+  const {offers, reviews} = props;
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainBoard city ={city} />
+          <MainBoard />
         </Route>
         <Route exact path="/login">
           <Login />
@@ -29,7 +29,7 @@ const App = (props) => {
           render={({match}) => {
             const {id} = match.params;
             const offer = offers.find((item) => item.id === +id);
-            return <Room city ={city} offer={offer} nearOffers={offers.slice(0, 4)} reviews={reviews} />;
+            return <Room offer={offer} nearOffers={offers.slice(0, 4)} reviews={reviews} />;
           }}>
         </Route>
         <Route>

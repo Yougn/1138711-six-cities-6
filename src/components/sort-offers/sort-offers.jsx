@@ -4,9 +4,9 @@ const SortOffers = () => {
   const [sortChoise, setUserChoise] = useState(false);
 
   const setFlag = () => {
-    if (sortChoise === false) {
+    if (!sortChoise) {
       setUserChoise(true);
-    } else if (sortChoise === true) {
+    } else if (sortChoise) {
       setUserChoise(false);
     }
   };
