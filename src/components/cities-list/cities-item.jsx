@@ -20,7 +20,7 @@ const CitiesItem = (props) => {
 
 CitiesItem.propTypes = {
   name: PropTypes.string.isRequired,
-  city: PropTypes.arrayOf(PropTypes.string).isRequired,
+  city: PropTypes.string.isRequired,
   changeCityName: PropTypes.func.isRequired
 };
 

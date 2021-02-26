@@ -78,7 +78,6 @@ const Map = ({elements, offer}) => {
 };
 
 Map.propTypes = {
-  city: PropTypes.array.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
   offer: PropTypes.shape(propCard)
 };

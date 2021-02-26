@@ -122,5 +122,36 @@ export default [
         zoom: 10
       }
     }
+  },
+  {
+    id: 4,
+    previewImage: `https://dizainexpert.ru/wp-content/uploads/2019/09/osveshhenie-komnat-v-kvartire-lyustry.jpg`,
+    images: [`https://mos-zalog.ru/media/uploads/dizainerskiy_remont_kvartiri_v_rassrochku.jpg`,
+      `https://nashaotdelka.ru/wp-content/uploads/na-foto-pokazana-komnata-na-yuzhnoy-storone-doma-oformlennaya-v-temnyh-tonah.jpg`,
+      `https://avatars.mds.yandex.net/get-zen_doc/1542444/pub_5d67b069bc251400ad9a6233_5d7764744e057700aee33490/scale_1200`,
+      `https://dizainexpert.ru/wp-content/uploads/2019/09/osveshhenie-komnat-v-kvartire-lyustry.jpg`],
+    isPremium: false,
+    isFavorite: false,
+    price: 4000,
+    title: `Luxurious studio at great location`,
+    type: `hotel`,
+    rating: 5,
+    name: `Amsterdam`,
+    bedrooms: 5,
+    maxAdults: 5,
+    goods: [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
+    host: {
+      avatarUrl: `img/2.png`,
+      id: 3,
+      isPro: true,
+      name: `Lenochka`
+    },
+    city: {
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 10
+      }
+    }
   }
 ];

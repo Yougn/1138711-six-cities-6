@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
-const SortOffers = () => {
+const SortOffers = (props) => {
+
+  const {choseSortType} = props;
+
   const [sortChoise, setUserChoise] = useState(false);
 
   const setFlag = () => {
@@ -21,14 +25,17 @@ const SortOffers = () => {
         </svg>
       </span>
       <ul className={sortChoise ? `places__options places__options--custom places__options--opened` : `places__options places__options--custom`} >
-        <li className="places__option places__option--active" tabIndex="0">Popular</li>
-        <li className="places__option" tabIndex="0">Price: low to high</li>
-        <li className="places__option" tabIndex="0">Price: high to low</li>
-        <li className="places__option" tabIndex="0">Top rated first</li>
+        <li className="places__option places__option--active" tabIndex="0" onClick={choseSortType}>Popular</li>
+        <li className="places__option" tabIndex="1" onClick={choseSortType}>Price: low to high</li>
+        <li className="places__option" tabIndex="2" onClick={choseSortType}>Price: high to low</li>
+        <li className="places__option" tabIndex="3" onClick={choseSortType}>Top rated first</li>
       </ul>
     </form>
   );
 };
 
+SortOffers.propTypes = {
+  choseSortType: PropTypes.func.isRequired,
+};
 
 export default SortOffers;
