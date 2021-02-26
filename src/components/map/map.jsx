@@ -5,25 +5,26 @@ import {propCard} from '../../common/propTypes';
 
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({city, elements, offer}) => {
+const Map = ({elements, offer}) => {
 
   const mapRef = useRef();
+  const mapCenter = {
+    lat: elements[0].city.location.latitude,
+    lng: elements[0].city.location.longitude
+  };
+
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
-      center: {
-        lat: city[0],
-        lng: city[1]
-      },
-      zoom: 12,
+      center: mapCenter,
       zoomControl: false,
-      marker: true
+      marker: true,
+      layers: [
+        leaflet
+        .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+          attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+        })
+      ]
     });
-
-    leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
-      .addTo(mapRef.current);
 
     const customIcon = leaflet.icon({
       iconUrl: `./img/pin.svg`,
@@ -45,23 +46,34 @@ const Map = ({city, elements, offer}) => {
       };
     });
 
+    if (offer === null) {
+      return () => {
+        mapRef.current.remove();
+      };
+    }
+
     const currentOffer = leaflet.icon({
       iconUrl: `./img/pin-active.svg`,
       iconSize: [30, 30]
     });
 
-    if (offer === null) {
-      return;
-    }
-
-    leaflet.marker({lat: offer.city.location.latitude, lng: offer.city.location.longitude},
-        {icon: currentOffer})
+    leaflet.marker({
+      lat: offer.city.location.latitude,
+      lng: offer.city.location.longitude},
+    {icon: currentOffer})
     .addTo(mapRef.current);
 
+    return () => {
+      mapRef.current.remove();
+    };
   }, [elements]);
 
+  useEffect(() => {
+    mapRef.current.setView(mapCenter, 12);
+  }, [mapCenter]);
+
   return (
-    <div ref={mapRef}></div>
+    <div></div>
   );
 };
 

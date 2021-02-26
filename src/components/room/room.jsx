@@ -11,7 +11,7 @@ import Map from '../map/map';
 
 const Room = (props) => {
 
-  const {offer, city, nearOffers, reviews} = props;
+  const {offer, nearOffers, reviews} = props;
   const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium} = offer;
 
   const roomsPhotos = images.map((image, index) => <RoomPhoto image={image} key={index} />);
@@ -109,7 +109,7 @@ const Room = (props) => {
         </div>
         <section className="property__map map" id="map">
 
-          <Map city={city} elements={nearOffers} offer={offer} />
+          <Map elements={nearOffers} offer={offer} />
 
         </section>
       </section>
@@ -128,7 +128,6 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  city: PropTypes.array.isRequired,
   offer: PropTypes.shape(propCard).isRequired,
   nearOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired

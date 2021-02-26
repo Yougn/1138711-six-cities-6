@@ -10,14 +10,14 @@ import {propCard, propReview} from '../../common/propTypes';
 
 const App = (props) => {
 
-  const {cardsCount, city, offers, reviews} = props;
+  const {offers, reviews} = props;
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainBoard cardsCount={cardsCount} city ={city} offers={offers} />
+          <MainBoard />
         </Route>
         <Route exact path="/login">
           <Login />
@@ -29,7 +29,7 @@ const App = (props) => {
           render={({match}) => {
             const {id} = match.params;
             const offer = offers.find((item) => item.id === +id);
-            return <Room city ={city} offer={offer} nearOffers={offers.slice(0, 4)} reviews={reviews} />;
+            return <Room offer={offer} nearOffers={offers.slice(0, 4)} reviews={reviews} />;
           }}>
         </Route>
         <Route>
@@ -41,7 +41,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
   city: PropTypes.arrayOf(PropTypes.number).isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired
