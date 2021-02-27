@@ -41,7 +41,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  city: PropTypes.arrayOf(PropTypes.number).isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired
 };
