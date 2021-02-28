@@ -10,7 +10,8 @@ const Map = ({elements, offer}) => {
   const mapRef = useRef();
   const mapCenter = {
     lat: elements[0].city.location.latitude,
-    lng: elements[0].city.location.longitude
+    lng: elements[0].city.location.longitude,
+    zoom: elements[0].city.location.zoom
   };
 
   useEffect(() => {
@@ -33,8 +34,9 @@ const Map = ({elements, offer}) => {
 
     elements.forEach((element) => {
       leaflet.marker({
-        lat: element.city.location.latitude,
-        lng: element.city.location.longitude
+        lat: element.location.latitude,
+        lng: element.location.longitude,
+        zoom: element.location.zoom
       },
       {
         icon: customIcon
@@ -58,8 +60,9 @@ const Map = ({elements, offer}) => {
     });
 
     leaflet.marker({
-      lat: offer.city.location.latitude,
-      lng: offer.city.location.longitude},
+      lat: offer.location.latitude,
+      lng: offer.location.longitude,
+      zoom: offer.location.zoom},
     {icon: currentOffer})
     .addTo(mapRef.current);
 
@@ -69,7 +72,7 @@ const Map = ({elements, offer}) => {
   }, [elements]);
 
   useEffect(() => {
-    mapRef.current.setView(mapCenter, 12);
+    mapRef.current.setView(mapCenter, 13);
   }, [mapCenter]);
 
   return (

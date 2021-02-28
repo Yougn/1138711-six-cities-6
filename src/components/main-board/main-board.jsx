@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CardsList from '../cards-list/cards-list';
 import Map from '../map/map';
@@ -7,25 +7,40 @@ import CitiesList from '../cities-list/cities-list';
 import Sort from '../sort/sort';
 import {propCard} from '../../common/propTypes';
 import {sortCards} from '../../common/utils';
+import {fetchHotelsList} from '../../redux/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
+
 
 const MainBoard = (props) => {
-  const {name, offers} = props;
-  const [sortType, setSortType] = useState(``);
+  const {name, offers, isDataLoaded, onLoadData} = props;
 
-  const choseSortType = (evt) => {
+  const [sortType, setSortType] = useState(``);
+  const [offer, setActiveOffer] = useState(null);
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  const onChoseSortType = (evt) => {
     const currentSortType = evt.target.tabIndex;
     setSortType(currentSortType);
   };
-
-  const filteredOffers = offers.filter((item) => item.name === name);
-  const sortOffers = sortCards(filteredOffers, sortType);
-
-  const [offer, setActiveOffer] = useState(null);
 
   const onMouseEnterCardId = (cardId)=> {
     const activeCard = offers.find((item) => item.id === cardId);
     setActiveOffer(activeCard);
   };
+
+  const filteredOffers = offers.filter((item) => item.city.name === name);
+  const sortOffers = sortCards(filteredOffers, sortType);
 
   const cardsList = <CardsList offers={sortOffers} onMouseEnterCardId={onMouseEnterCardId} />;
 
@@ -45,7 +60,7 @@ const MainBoard = (props) => {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{sortOffers.length} places to stay in {name}</b>
 
-            <Sort choseSortType={choseSortType} />
+            <Sort onChoseSortType={onChoseSortType} />
 
             {cardsList}
 
@@ -65,14 +80,23 @@ const MainBoard = (props) => {
 
 MainBoard.propTypes = {
   name: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
+  offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     name: state.name,
-    offers: state.offers
+    offers: state.offers,
+    isDataLoaded: state.isDataLoaded
   };
 };
 
-export default connect(mapStateToProps, null)(MainBoard);
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchHotelsList());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainBoard);

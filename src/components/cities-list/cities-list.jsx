@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {changeCityAC} from '../../redux/action';
+import {changeCityActionCreator} from '../../redux/action';
 import {cities} from '../../common/utils';
 import CitiesItem from './cities-item';
 
@@ -28,7 +28,7 @@ CitiesList.propTypes = {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeCityName: (cityName) => {
-      dispatch(changeCityAC(cityName));
+      dispatch(changeCityActionCreator(cityName));
     }
   };
 };
