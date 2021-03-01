@@ -15,22 +15,24 @@ export const CityName = {
 
 export const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 
-const PRICE_LOW = 1;
-const PRICE_HIGH = 2;
-const TOP_RATING = 3;
+const TypeSorting = {
+  PRICE_LOW: 1,
+  PRICE_HIGH: 2,
+  TOP_RATING: 3
+};
 
 export const sortCards = function (cardsArray, sortType) {
   const typeSorting = sortType;
 
-  if (typeSorting === PRICE_LOW) {
+  if (typeSorting === TypeSorting.PRICE_LOW) {
     cardsArray.sort(function (a, b) {
       return a.price - b.price;
     });
-  } else if (typeSorting === PRICE_HIGH) {
+  } else if (typeSorting === TypeSorting.PRICE_HIGH) {
     cardsArray.sort(function (a, b) {
       return b.price - a.price;
     });
-  } else if (typeSorting === TOP_RATING) {
+  } else if (typeSorting === TypeSorting.TOP_RATING) {
     cardsArray.sort(function (a, b) {
       return b.rating - a.rating;
     });
