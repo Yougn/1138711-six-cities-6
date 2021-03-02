@@ -7,14 +7,14 @@ import {Link} from 'react-router-dom';
 const NearRoom = (props) => {
 
   const {nearOffer} = props;
-  const {id, previewImage, isPremium, price, rating, title, type} = nearOffer;
+  const {id, preview_image, is_premium, price, rating, title, type} = nearOffer;
 
   return (
     <article className="cities__place-card place-card">
-      <div className="place-card__mark"><span>{isPremium && `Premium`}</span></div>
+      <div className="place-card__mark"><span>{is_premium && `Premium`}</span></div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={preview_image} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info" >

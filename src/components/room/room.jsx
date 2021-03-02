@@ -13,7 +13,6 @@ const Room = (props) => {
 
   const {offer, nearOffers, reviews} = props;
   const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium} = offer;
-
   const roomsPhotos = images.map((image, index) => <RoomPhoto image={image} key={index} />);
   const properties = goods.map((good, index) => <PropertyInside good={good} key={index} />);
   const comments = reviews.map((review) => <Comment key={review.id} review={review} />);

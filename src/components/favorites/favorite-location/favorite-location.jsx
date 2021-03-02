@@ -4,9 +4,7 @@ import FavoriteCard from '../favorite-card/favorite-card';
 import {propCard} from '../../../common/propTypes';
 
 const FavoriteLocation = (props) => {
-  const {name, favoriteOffers} = props;
-
-  const cards = favoriteOffers.map((offer) => <FavoriteCard key={offer.id} offer={offer} />);
+  const {name, offer} = props;
 
   return (
     <li className="favorites__locations-items">
@@ -18,7 +16,7 @@ const FavoriteLocation = (props) => {
         </div>
       </div>
       <div className="favorites__places">
-        {cards}
+        <FavoriteCard offer={offer} />
       </div>
     </li>
   );
@@ -26,7 +24,7 @@ const FavoriteLocation = (props) => {
 
 FavoriteLocation.propTypes = {
   name: PropTypes.string.isRequired,
-  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
+  offer: PropTypes.arrayOf(propCard).isRequired
 };
 
 export default FavoriteLocation;
