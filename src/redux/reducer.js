@@ -5,7 +5,8 @@ const initialState = {
   name: `Paris`,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   offers: [],
-  isDataLoaded: false
+  isDataLoaded: false,
+  email: null
 };
 
 const reducer = (state = initialState, action) => {

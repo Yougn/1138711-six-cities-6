@@ -8,8 +8,9 @@ import PageNotFound from '../page-not-found/page-not-found';
 import Room from '../room/room';
 import {propCard, propReview} from '../../common/propTypes';
 import {connect} from 'react-redux';
-import {PrivateRoute} from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import PrivateRoute from '../private-route/private-route';
+
 
 const App = (props) => {
 
