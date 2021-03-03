@@ -8,8 +8,13 @@ export const fetchHotelsList = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
-    .then(() => dispatch(authorizeStatusActionCreator(AuthorizationStatus.AUTH)))
-    .catch(() => {})
+    .then((authInfo) => {
+      if (authInfo.status === 200) {
+        const {email} = authInfo.data;
+        dispatch(authorizeStatusActionCreator(AuthorizationStatus.AUTH, email));
+      }
+    })
+    .catch(() => { })
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (

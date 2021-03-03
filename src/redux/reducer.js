@@ -6,7 +6,7 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   offers: [],
   isDataLoaded: false,
-  email: null
+  email: ``
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,7 +20,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
-        authorizationStatus: action.status
+        authorizationStatus: action.status,
+        email: action.email
       };
 
     case ActionType.LOAD_HOTELS:

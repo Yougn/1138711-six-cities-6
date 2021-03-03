@@ -6,7 +6,16 @@ import {propCard} from '../../common/propTypes';
 const Favorites = (props) => {
   const {favoriteOffers} = props;
 
-  const locations = favoriteOffers.map((offer) => <FavoriteLocation key={offer.id} name={offer.name} offer={offer} />);
+  const cardsGroups = favoriteOffers.reduce((group, offer) => {
+    group[offer.city] = group[offer.city] || [];
+    group[offer.city].push(offer);
+    return group;
+  }, []);
+
+  const cityNames = Object.keys(cardsGroups);
+
+  // const locations = favoriteOffers.map((offer) => <FavoriteLocation key={offer.id} name={offer.name} offer={offer} />);
+  const locations = cityNames.map((name) => <FavoriteLocation key={name} name={name} favoriteOffers={cardsGroups[name]} />);
 
   return (
     <main className="page__main page__main--favorites">
