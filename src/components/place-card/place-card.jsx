@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 const PlaceCard = (props) => {
 
   const {offer, onMouseEnterCardId} = props;
-  console.log(offer);
+
   const {id, is_premium, price, rating, title, type, preview_image} = offer;
 
   const handleCardMouseEnter = () => {

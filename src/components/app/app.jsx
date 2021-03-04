@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import MainBoard from '../main-board/main-board';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import PageNotFound from '../page-not-found/page-not-found';
 import Room from '../room/room';
 import {propCard, propReview} from '../../common/propTypes';
+import {connect} from 'react-redux';
+import browserHistory from '../../browser-history';
+import PrivateRoute from '../private-route/private-route';
+
 
 const App = (props) => {
 
@@ -14,7 +18,7 @@ const App = (props) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path="/">
           <MainBoard />
@@ -22,9 +26,9 @@ const App = (props) => {
         <Route exact path="/login">
           <Login />
         </Route>
-        <Route exact path="/favorites">
-          <Favorites favoriteOffers={favoriteOffers} />
-        </Route>
+        <PrivateRoute exact path="/favorites"
+          render={() => <Favorites favoriteOffers={favoriteOffers} />} >
+        </PrivateRoute>
         <Route exact path="/offer/:id"
           render={({match}) => {
             const {id} = match.params;
@@ -45,4 +49,10 @@ App.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    offers: state.offers
+  };
+};
+
+export default connect(mapStateToProps, null)(App);

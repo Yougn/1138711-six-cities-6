@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const SortOffers = (props) => {
 
-  const {onChoseSortType} = props;
+  const {handleSortListClick} = props;
 
   const [sortChoise, setUserChoise] = useState(false);
 
@@ -25,17 +25,17 @@ const SortOffers = (props) => {
         </svg>
       </span>
       <ul className={sortChoise ? `places__options places__options--custom places__options--opened` : `places__options places__options--custom`} >
-        <li className="places__option places__option--active" tabIndex="0" onClick={onChoseSortType}>Popular</li>
-        <li className="places__option" tabIndex="1" onClick={onChoseSortType}>Price: low to high</li>
-        <li className="places__option" tabIndex="2" onClick={onChoseSortType}>Price: high to low</li>
-        <li className="places__option" tabIndex="3" onClick={onChoseSortType}>Top rated first</li>
+        <li className="places__option places__option--active" tabIndex="0" onClick={handleSortListClick}>Popular</li>
+        <li className="places__option" tabIndex="1" onClick={handleSortListClick}>Price: low to high</li>
+        <li className="places__option" tabIndex="2" onClick={handleSortListClick}>Price: high to low</li>
+        <li className="places__option" tabIndex="3" onClick={handleSortListClick}>Top rated first</li>
       </ul>
     </form>
   );
 };
 
 SortOffers.propTypes = {
-  onChoseSortType: PropTypes.func.isRequired,
+  handleSortListClick: PropTypes.func.isRequired,
 };
 
 export default SortOffers;

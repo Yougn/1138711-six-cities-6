@@ -9,10 +9,12 @@ import {propCard} from '../../common/propTypes';
 import {sortCards} from '../../common/utils';
 import {fetchHotelsList} from '../../redux/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {AuthorizationStatus} from '../../common/const';
+import {Link} from 'react-router-dom';
 
 
 const MainBoard = (props) => {
-  const {name, offers, isDataLoaded, onLoadData} = props;
+  const {name, offers, isDataLoaded, onLoadData, authorizationStatus, email} = props;
 
   const [sortType, setSortType] = useState(``);
   const [offer, setActiveOffer] = useState(null);
@@ -29,12 +31,12 @@ const MainBoard = (props) => {
     );
   }
 
-  const onChoseSortType = (evt) => {
+  const handleSortListClick = (evt) => {
     const currentSortType = evt.target.tabIndex;
     setSortType(currentSortType);
   };
 
-  const onMouseEnterCardId = (cardId)=> {
+  const onMouseEnterCardId = (cardId) => {
     const activeCard = offers.find((item) => item.id === cardId);
     setActiveOffer(activeCard);
   };
@@ -45,36 +47,66 @@ const MainBoard = (props) => {
   const cardsList = <CardsList offers={sortOffers} onMouseEnterCardId={onMouseEnterCardId} />;
 
   return (
-    <main className="page__main page__main--index">
-      <h1 className="visually-hidden">Cities</h1>
-      <div className="tabs">
-        <section className="locations container">
+    <div className="page page--gray page--main">
 
-          <CitiesList name={name} />
-
-        </section>
-      </div>
-      <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{sortOffers.length} places to stay in {name}</b>
-
-            <Sort onChoseSortType={onChoseSortType} />
-
-            {cardsList}
-
-          </section>
-          <div className="cities__right-section">
-            <section className="cities__map map" id="map">
-
-              <Map elements={sortOffers} offer={offer} />
-
-            </section>
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <a className="header__logo-link header__logo-link--active">
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              </a>
+            </div>
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  <div className="header__nav-link header__nav-link--profile">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__user-name user__name">
+                      {authorizationStatus === AuthorizationStatus.AUTH ?
+                        <Link to={`/favorites`}>
+                          <span className="header__user-name user__name">{email}</span></Link> :
+                        <Link to={`/login`}>Sign in</Link>}
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
-      </div>
-    </main >
+      </header>
+
+      <main className="page__main page__main--index">
+        <h1 className="visually-hidden">Cities</h1>
+        <div className="tabs">
+          <section className="locations container">
+
+            <CitiesList name={name} />
+
+          </section>
+        </div>
+        <div className="cities">
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{sortOffers.length} places to stay in {name}</b>
+
+              <Sort handleSortListClick={handleSortListClick} />
+
+              {cardsList}
+
+            </section>
+            <div className="cities__right-section">
+              <section className="cities__map map" id="map">
+
+                <Map elements={sortOffers} offer={offer} />
+
+              </section>
+            </div>
+          </div>
+        </div>
+      </main >
+    </div>
   );
 };
 
@@ -82,14 +114,18 @@ MainBoard.propTypes = {
   name: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     name: state.name,
     offers: state.offers,
-    isDataLoaded: state.isDataLoaded
+    isDataLoaded: state.isDataLoaded,
+    authorizationStatus: state.authorizationStatus,
+    email: state.email
   };
 };
 

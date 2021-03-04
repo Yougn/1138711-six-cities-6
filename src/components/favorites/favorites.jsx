@@ -13,6 +13,8 @@ const Favorites = (props) => {
   }, []);
 
   const cityNames = Object.keys(cardsGroups);
+
+  // const locations = favoriteOffers.map((offer) => <FavoriteLocation key={offer.id} name={offer.name} offer={offer} />);
   const locations = cityNames.map((name) => <FavoriteLocation key={name} name={name} favoriteOffers={cardsGroups[name]} />);
 
   return (
