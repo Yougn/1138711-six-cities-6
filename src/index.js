@@ -6,7 +6,6 @@ import thunk from "redux-thunk";
 import {createAPI} from './api/api';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import reviews from './mocks/reviews';
 import {reducer} from './redux/reducer';
 import {checkAuth} from './redux/api-actions';
 import {AuthorizationStatus} from './common/const';
@@ -28,7 +27,7 @@ store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App reviews={reviews} />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );
