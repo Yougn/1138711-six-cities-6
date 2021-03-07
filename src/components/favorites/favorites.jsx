@@ -1,10 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import FavoriteLocation from './favorite-location/favorite-location';
 import {propCard} from '../../common/propTypes';
+import {connect} from 'react-redux';
+import {favoriteList} from '../../redux/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 const Favorites = (props) => {
-  const {favoriteOffers} = props;
+  const {favoriteOffers, onLoadFavorite, isFavoriteLoaded} = props;
+
+  useEffect(() => {
+    if (!isFavoriteLoaded) {
+      onLoadFavorite();
+    }
+  }, [isFavoriteLoaded]);
+
+  if (!isFavoriteLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   const cardsGroups = favoriteOffers.reduce((group, offer) => {
     group[offer.city] = group[offer.city] || [];
@@ -32,7 +47,22 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired
+  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
+  onLoadFavorite: PropTypes.func.isRequired,
+  isFavoriteLoaded: PropTypes.bool.isRequired,
 };
 
-export default Favorites;
+const mapStateToProps = (state) => {
+  return {
+    favoriteOffers: state.favoriteOffers,
+    isFavoriteLoaded: state.isFavoriteLoaded
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFavorite() {
+    dispatch(favoriteList());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReviewsForm from '../reviews-form/reviews-form';
 import PropTypes from 'prop-types';
 import NearRoom from './near-room/near-room';
@@ -8,14 +8,45 @@ import RoomPhoto from './room-photo/room-photo';
 import PropertyInside from './property-inside/property-inside';
 import Comment from './comment/comment';
 import Map from '../map/map';
+import {fetchHotelsListNearby, commentsList, fetchRoom} from '../../redux/api-actions';
+import {connect} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {Redirect} from 'react-router';
+import {AuthorizationStatus} from '../../common/const';
+import {Link} from 'react-router-dom';
+
 
 const Room = (props) => {
 
-  const {offer, nearOffers, reviews} = props;
-  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium} = offer;
+  const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
+    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus} = props;
+  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium} = room;
+
+  if (error) {
+    return <Redirect to={`/pageNotFound`} />;
+  }
+
+  useEffect(() => {
+    if (!isRoomLoaded) {
+      onLoadRoom({id});
+    }
+    if (!isNearOffersLoaded) {
+      onLoadNearRooms({id});
+    }
+    if (!isCommentsLoaded) {
+      onLoadComments({id});
+    }
+  }, [isRoomLoaded, isNearOffersLoaded, isCommentsLoaded]);
+
+  if (!isRoomLoaded || !isNearOffersLoaded || !isCommentsLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   const roomsPhotos = images.map((image, index) => <RoomPhoto image={image} key={index} />);
   const properties = goods.map((good, index) => <PropertyInside good={good} key={index} />);
-  const comments = reviews.map((review) => <Comment key={review.id} review={review} />);
+  const reviews = currentComments.map((currentComment) => <Comment key={currentComment.id} currentComment={currentComment} />);
   const nearRooms = nearOffers.map((nearOffer) => <NearRoom key={nearOffer.id} nearOffer={nearOffer} />);
 
   return (
@@ -94,21 +125,23 @@ const Room = (props) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount"></span></h2>
               <ul className="reviews__list">
 
-                {comments}
+                {reviews}
 
               </ul>
 
-              <ReviewsForm />
+              {authorizationStatus === AuthorizationStatus.AUTH ?
+                <ReviewsForm id={id} /> :
+                <Link to={`/login`}>Sign in</Link>}
 
             </section>
           </div>
         </div>
         <section className="property__map map" id="map">
 
-          <Map elements={nearOffers} offer={offer} />
+          <Map elements={nearOffers} offer={room} />
 
         </section>
       </section>
@@ -127,9 +160,43 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  offer: PropTypes.shape(propCard).isRequired,
+  id: PropTypes.string,
+  room: PropTypes.shape(propCard).isRequired,
+  onLoadRoom: PropTypes.func.isRequired,
+  isRoomLoaded: PropTypes.bool.isRequired,
   nearOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired
+  onLoadNearRooms: PropTypes.func.isRequired,
+  isNearOffersLoaded: PropTypes.bool.isRequired,
+  currentComments: PropTypes.arrayOf(PropTypes.shape(propReview)).isRequired,
+  onLoadComments: PropTypes.func.isRequired,
+  isCommentsLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  error: PropTypes.bool.isRequired,
 };
 
-export default Room;
+const mapStateToProps = (state) => {
+  return {
+    room: state.room,
+    isRoomLoaded: state.isRoomLoaded,
+    nearOffers: state.nearOffers,
+    isNearOffersLoaded: state.isNearOffersLoaded,
+    currentComments: state.currentComments,
+    isCommentsLoaded: state.isCommentsLoaded,
+    authorizationStatus: state.authorizationStatus,
+    error: state.error
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadRoom(id) {
+    dispatch(fetchRoom(id));
+  },
+  onLoadNearRooms(id) {
+    dispatch(fetchHotelsListNearby(id));
+  },
+  onLoadComments(id) {
+    dispatch(commentsList(id));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

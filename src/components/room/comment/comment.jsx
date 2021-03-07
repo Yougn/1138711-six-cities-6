@@ -5,14 +5,14 @@ import {propReview} from '../../../common/propTypes';
 
 const Comment = (props) => {
 
-  const {review} = props;
-  const {comment, date, rating, user} = review;
+  const {currentComment} = props;
+  const {comment, date, rating, user} = currentComment;
 
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
+          <img className="reviews__avatar user__avatar" src={user.avatar_url} width="54" height="54" alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">
           {user.name}
@@ -35,7 +35,7 @@ const Comment = (props) => {
 };
 
 Comment.propTypes = {
-  review: PropTypes.shape(propReview).isRequired,
+  currentComment: PropTypes.shape(propReview).isRequired,
 };
 
 export default Comment;
