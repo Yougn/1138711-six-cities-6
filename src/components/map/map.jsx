@@ -42,10 +42,6 @@ const Map = ({elements, offer}) => {
         icon: customIcon
       })
         .addTo(mapRef.current);
-
-      return () => {
-        mapRef.current.remove();
-      };
     });
 
     if (offer === null) {

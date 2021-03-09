@@ -30,7 +30,7 @@ const App = () => {
           }}>
         </Route>
         <Route>
-          <PageNotFound exact path="/pageNotFound" />
+          <PageNotFound path="/pageNotFound" />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -14,6 +14,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {Redirect} from 'react-router';
 import {AuthorizationStatus} from '../../common/const';
 import {Link} from 'react-router-dom';
+import {getAuthorizationStatus} from '../../redux/selectors';
 
 
 const Room = (props) => {
@@ -21,6 +22,7 @@ const Room = (props) => {
   const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
     currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus} = props;
   const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium} = room;
+
 
   if (error) {
     return <Redirect to={`/pageNotFound`} />;
@@ -109,7 +111,7 @@ const Room = (props) => {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={host} width="74" height="74" alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
                   {host.name}
@@ -125,7 +127,7 @@ const Room = (props) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount"></span></h2>
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
               <ul className="reviews__list">
 
                 {reviews}
@@ -176,14 +178,14 @@ Room.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    room: state.room,
-    isRoomLoaded: state.isRoomLoaded,
-    nearOffers: state.nearOffers,
-    isNearOffersLoaded: state.isNearOffersLoaded,
-    currentComments: state.currentComments,
-    isCommentsLoaded: state.isCommentsLoaded,
-    authorizationStatus: state.authorizationStatus,
-    error: state.error
+    room: state.data.room,
+    isRoomLoaded: state.data.isRoomLoaded,
+    nearOffers: state.data.nearOffers,
+    isNearOffersLoaded: state.data.isNearOffersLoaded,
+    currentComments: state.data.currentComments,
+    isCommentsLoaded: state.data.isCommentsLoaded,
+    authorizationStatus: getAuthorizationStatus(state),
+    error: state.data.error
   };
 };
 

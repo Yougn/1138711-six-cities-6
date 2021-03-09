@@ -1,6 +1,6 @@
 export const ActionType = {
-  CHANGE_CITY: `main-board/changeCity`,
-  REQUIRED_AUTHORIZATION: `login/requiredAuthorization`,
+  CHANGE_CITY: `city/changeCity`,
+  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   LOAD_ROOM: `data/loadRoom`,
   LOAD_HOTELS: `data/loadHotels`,
   LOAD_NEAR_HOTELS: `data/loadNearHotels`,
@@ -10,7 +10,9 @@ export const ActionType = {
 };
 
 export const changeCityActionCreator = (cityName) => ({type: ActionType.CHANGE_CITY, cityName});
+
 export const authorizeStatusActionCreator = (status, email) => ({type: ActionType.REQUIRED_AUTHORIZATION, status, email});
+
 export const loadRoomActionCreator = (room) => ({type: ActionType.LOAD_ROOM, room});
 export const loadHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_HOTELS, hotels});
 export const loadNearHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_NEAR_HOTELS, hotels});

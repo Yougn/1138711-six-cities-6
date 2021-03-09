@@ -9,7 +9,7 @@ const STARS_COUNT = 5;
 const ReviewsForm = (props) => {
   const {id, onSubmit} = props;
 
-  const [userReview, setUserReview] = useState(null);
+  const [userReview, setUserReview] = useState(``);
   const handleTextareaChange = (evt) => {
     const text = evt.target.value;
     setUserReview(text);
