@@ -1,82 +1,18 @@
-import {AuthorizationStatus} from '../common/const';
-import {ActionType} from './action';
+import {combineReducers} from 'redux';
+import {city} from './city-reducer';
+import {user} from './user-reducer';
+import {data} from './data-reducer';
 
-const initialState = {
-  name: `Paris`,
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
-  offers: [],
-  isDataLoaded: false,
-  email: ``,
-  room: {},
-  isRoomLoaded: false,
-  nearOffers: [],
-  isNearOffersLoaded: false,
-  currentComments: [],
-  isCommentsLoaded: false,
-  favoriteOffers: [],
-  isFavoriteLoaded: false,
-  error: false
+export const NameSpace = {
+  DATA: `DATA`,
+  USER: `USER`,
+  CITY: `CITY`
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CHANGE_CITY:
-      return {
-        ...state,
-        name: action.cityName
-      };
+const reducers = combineReducers({
+  data,
+  [NameSpace.USER]: user,
+  [NameSpace.CITY]: city
+});
 
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.status,
-        email: action.email
-      };
-
-    case ActionType.LOAD_ROOM:
-      return {
-        ...state,
-        room: action.room,
-        isRoomLoaded: true
-      };
-
-    case ActionType.LOAD_HOTELS:
-      return {
-        ...state,
-        offers: action.hotels,
-        isDataLoaded: true
-      };
-
-    case ActionType.LOAD_NEAR_HOTELS:
-      return {
-        ...state,
-        nearOffers: action.hotels,
-        isNearOffersLoaded: true
-      };
-
-    case ActionType.LOAD_FAVORITE_HOTELS:
-      return {
-        ...state,
-        favoriteOffers: action.hotels,
-        isFavoriteLoaded: true
-      };
-
-    case ActionType.LOAD_COMMENTS:
-      return {
-        ...state,
-        currentComments: action.currentComments,
-        isCommentsLoaded: true,
-      };
-
-    case ActionType.LOAD_ERROR:
-      return {
-        ...state,
-        error: true
-      };
-
-    default:
-      return state;
-  }
-};
-
-export {reducer};
+export default reducers;

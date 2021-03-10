@@ -11,6 +11,7 @@ import {fetchHotelsList} from '../../redux/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {AuthorizationStatus} from '../../common/const';
 import {Link} from 'react-router-dom';
+import {getAuthorizationStatus, getCityName, getUserEmail} from '../../redux/selectors';
 
 
 const MainBoard = (props) => {
@@ -121,11 +122,11 @@ MainBoard.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    name: state.name,
-    offers: state.offers,
-    isDataLoaded: state.isDataLoaded,
-    authorizationStatus: state.authorizationStatus,
-    email: state.email
+    name: getCityName(state),
+    offers: state.data.offers,
+    isDataLoaded: state.data.isDataLoaded,
+    authorizationStatus: getAuthorizationStatus(state),
+    email: getUserEmail(state)
   };
 };
 

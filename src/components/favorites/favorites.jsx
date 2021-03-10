@@ -54,8 +54,8 @@ Favorites.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    favoriteOffers: state.favoriteOffers,
-    isFavoriteLoaded: state.isFavoriteLoaded
+    favoriteOffers: state.data.favoriteOffers,
+    isFavoriteLoaded: state.data.isFavoriteLoaded
   };
 };
 
