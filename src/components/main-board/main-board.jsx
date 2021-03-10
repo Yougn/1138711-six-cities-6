@@ -10,7 +10,7 @@ import {sortCards} from '../../common/utils';
 import {fetchHotelsList} from '../../redux/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {AuthorizationStatus} from '../../common/const';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {getAuthorizationStatus, getCityName, getUserEmail} from '../../redux/selectors';
 
 
@@ -30,6 +30,9 @@ const MainBoard = (props) => {
     return (
       <LoadingScreen />
     );
+  }
+  if (offers.length === 0) {
+    return <Redirect to={`/mainEmpty`} />;
   }
 
   const handleSortListClick = (evt) => {

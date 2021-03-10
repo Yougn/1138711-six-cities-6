@@ -2,7 +2,7 @@ import {AuthorizationStatus} from "../common/const";
 import {authorizeStatusActionCreator, loadHotelsActionCreator,
   loadNearHotelsActionCreator, loadCommentsActionCreator,
   loadFavoriteHotelsActionCreator, loadRoomActionCreator,
-  loadErrorActionCreator} from "./action";
+  loadFavoriteHotelActionCreator, loadErrorActionCreator} from "./action";
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
@@ -52,6 +52,13 @@ export const fetchHotelsListNearby = ({id}) => (dispatch, _getState, api) => (
 export const favoriteList = () => (dispatch, _getState, api) => (
   api.get(`/favorite`)
     .then(({data}) => dispatch(loadFavoriteHotelsActionCreator(data)))
+);
+
+export const favorite = ({id}, {status}) => (dispatch, _getState, api) => (
+  api.post(`favorite/${id}/${status}`)
+    .then(({data}) => {
+      dispatch(loadFavoriteHotelActionCreator(data));
+    })
 );
 
 export const commentsList = ({id}) => (dispatch, _getState, api) => (

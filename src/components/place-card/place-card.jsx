@@ -1,14 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {propCard} from '../../common/propTypes';
 import {getRatingLevel} from '../../common/utils';
 import {Link} from 'react-router-dom';
+import {favorite} from '../../redux/api-actions';
+import {connect} from 'react-redux';
+import {getAuthorizationStatus} from '../../redux/selectors';
+import {AuthorizationStatus} from '../../common/const';
 
 const PlaceCard = (props) => {
 
-  const {offer, onMouseEnterCardId} = props;
-
+  const {offer, onMouseEnterCardId, onClick, authorizationStatus} = props;
   const {id, is_premium, price, rating, title, type, preview_image} = offer;
+
+  const [isFavorite, setFavorite] = useState(`1`);
+
+  const handleToggle = () => {
+    if (!isFavorite) {
+      setFavorite(Number(true));
+    } else if (isFavorite) {
+      setFavorite(Number(false));
+    }
+
+    onClick({id}, {status: isFavorite});
+  };
 
   const handleCardMouseEnter = () => {
     onMouseEnterCardId(id);
@@ -28,10 +43,12 @@ const PlaceCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button" >
-            <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {authorizationStatus === AuthorizationStatus.AUTH ?
+            <button className="place-card__bookmark-button button" type="button" onClick={handleToggle} >
+              <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
+              <span className="visually-hidden">To bookmarks</span>
+            </button> :
+            <Link to={`/login`}></Link>}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -51,6 +68,21 @@ const PlaceCard = (props) => {
 PlaceCard.propTypes = {
   offer: PropTypes.shape(propCard).isRequired,
   onMouseEnterCardId: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export default PlaceCard;
+const mapStateToProps = (state) => {
+  return {
+    authorizationStatus: getAuthorizationStatus(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onClick(id, status) {
+    dispatch(favorite(id, status));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+

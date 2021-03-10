@@ -7,6 +7,7 @@ import PageNotFound from '../page-not-found/page-not-found';
 import Room from '../room/room';
 import browserHistory from '../../browser-history';
 import PrivateRoute from '../private-route/private-route';
+import MainEmpty from '../main-empty/main-empty';
 
 
 const App = () => {
@@ -28,6 +29,9 @@ const App = () => {
             const {id} = match.params;
             return <Room id={id} />;
           }}>
+        </Route>
+        <Route>
+          <MainEmpty path="/mainEmpty" />
         </Route>
         <Route>
           <PageNotFound path="/pageNotFound" />

@@ -44,6 +44,12 @@ const data = (state = initialState, action) => {
         isFavoriteLoaded: true
       };
 
+    case ActionType.LOAD_FAVORITE_HOTEL:
+      return {
+        ...state,
+        favoriteOffers: [...state.favoriteOffers, action.hotel]
+      };
+
     case ActionType.LOAD_COMMENTS:
       return {
         ...state,
