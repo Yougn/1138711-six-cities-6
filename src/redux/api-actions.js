@@ -2,7 +2,8 @@ import {AuthorizationStatus} from "../common/const";
 import {authorizeStatusActionCreator, loadHotelsActionCreator,
   loadNearHotelsActionCreator, loadCommentsActionCreator,
   loadFavoriteHotelsActionCreator, loadRoomActionCreator,
-  loadFavoriteHotelActionCreator, loadErrorActionCreator} from "./action";
+  loadFavoriteHotelActionCreator, loadErrorActionCreator,
+  deleteFavoriteHotelActionCreator} from "./action";
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
@@ -57,8 +58,13 @@ export const favoriteList = () => (dispatch, _getState, api) => (
 export const favorite = ({id}, {status}) => (dispatch, _getState, api) => (
   api.post(`favorite/${id}/${status}`)
     .then(({data}) => {
-      dispatch(loadFavoriteHotelActionCreator(data));
+      if (data.is_favorite) {
+        dispatch(loadFavoriteHotelActionCreator(data));
+      } else if (!data.is_favorite) {
+        dispatch(deleteFavoriteHotelActionCreator(data));
+      }
     })
+    .catch(() => { })
 );
 
 export const commentsList = ({id}) => (dispatch, _getState, api) => (

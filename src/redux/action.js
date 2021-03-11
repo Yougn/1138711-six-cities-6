@@ -7,6 +7,7 @@ export const ActionType = {
   LOAD_COMMENTS: `data/loadComments`,
   LOAD_FAVORITE_HOTELS: `data/loadFavoriteHotels`,
   LOAD_FAVORITE_HOTEL: `data/loadFavoriteHotel`,
+  DELETE_FAVORITE_HOTEL: `data/deleteFavoriteHotel`,
   LOAD_ERROR: `data/loadError`,
 };
 
@@ -19,5 +20,6 @@ export const loadHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_HOTEL
 export const loadNearHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_NEAR_HOTELS, hotels});
 export const loadFavoriteHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_FAVORITE_HOTELS, hotels});
 export const loadFavoriteHotelActionCreator = (hotel) => ({type: ActionType.LOAD_FAVORITE_HOTEL, hotel});
+export const deleteFavoriteHotelActionCreator = (hotel) => ({type: ActionType.DELETE_FAVORITE_HOTEL, hotel});
 export const loadCommentsActionCreator = (currentComments) => ({type: ActionType.LOAD_COMMENTS, currentComments});
 export const loadErrorActionCreator = (error) => ({type: ActionType.LOAD_ERROR, error});

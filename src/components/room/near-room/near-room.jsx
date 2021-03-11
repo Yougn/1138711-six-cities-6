@@ -11,16 +11,16 @@ const NearRoom = (props) => {
   const {nearOffer, onClick} = props;
   const {id, preview_image, is_premium, price, rating, title, type} = nearOffer;
 
-  const [isFavorite, setFavorite] = useState(`1`);
+  const [isFavorite, setFavorite] = useState(true);
 
   const handleToggle = () => {
     if (!isFavorite) {
-      setFavorite(Number(true));
+      setFavorite(true);
     } else if (isFavorite) {
-      setFavorite(Number(false));
+      setFavorite(false);
     }
 
-    onClick({id}, {status: isFavorite});
+    onClick({id}, {status: Number(isFavorite)});
   };
 
   return (

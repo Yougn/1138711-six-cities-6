@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {propCard} from '../../common/propTypes';
 import {getRatingLevel} from '../../common/utils';
@@ -11,18 +11,16 @@ import {AuthorizationStatus} from '../../common/const';
 const PlaceCard = (props) => {
 
   const {offer, onMouseEnterCardId, onClick, authorizationStatus} = props;
-  const {id, is_premium, price, rating, title, type, preview_image} = offer;
-
-  const [isFavorite, setFavorite] = useState(`1`);
+  const {id, is_premium, price, rating, title, type, preview_image, is_favorite} = offer;
 
   const handleToggle = () => {
-    if (!isFavorite) {
-      setFavorite(Number(true));
-    } else if (isFavorite) {
-      setFavorite(Number(false));
+    let status;
+    if (!is_favorite) {
+      status = 1;
+    } else if (is_favorite) {
+      status = 0;
     }
-
-    onClick({id}, {status: isFavorite});
+    onClick({id}, {status});
   };
 
   const handleCardMouseEnter = () => {

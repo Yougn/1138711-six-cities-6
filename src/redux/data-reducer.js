@@ -47,7 +47,13 @@ const data = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITE_HOTEL:
       return {
         ...state,
-        favoriteOffers: [...state.favoriteOffers, action.hotel]
+        favoriteOffers: [...state.favoriteOffers.filter((favor) => favor.id !== action.hotel.id), action.hotel]
+      };
+
+    case ActionType.DELETE_FAVORITE_HOTEL:
+      return {
+        ...state,
+        favoriteOffers: [...state.favoriteOffers.filter((favor) => favor.id !== action.hotel.id)],
       };
 
     case ActionType.LOAD_COMMENTS:

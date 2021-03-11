@@ -21,20 +21,19 @@ const Room = (props) => {
 
   const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
     currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClick} = props;
-  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium} = room;
+  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description} = room;
 
-  const [isFavorite, setFavorite] = useState(`1`);
+  const [isFavorite, setFavorite] = useState(true);
 
   const handleToggle = () => {
     if (!isFavorite) {
-      setFavorite(Number(true));
+      setFavorite(true);
     } else if (isFavorite) {
-      setFavorite(Number(false));
+      setFavorite(false);
     }
 
-    onClick({id}, {status: isFavorite});
+    onClick({id}, {status: Number(isFavorite)});
   };
-
 
   if (error) {
     return <Redirect to={`/pageNotFound`} />;
@@ -76,17 +75,14 @@ const Room = (props) => {
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">
-                      {authorizationStatus === AuthorizationStatus.AUTH ?
-                        <Link to={`/favorites`}>
-                          <span className="header__user-name user__name">{email}</span></Link> :
-                        <Link to={`/login`}>Sign in</Link>}
-                    </span>
-                  </a>
+                <li className="header__nav-item user header__nav-link header__nav-link--profile">
+                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                  <span className="header__user-name user__name">
+                    {authorizationStatus === AuthorizationStatus.AUTH ?
+                      <Link to={`/favorites`}>
+                        <span className="header__user-name user__name">{email}</span></Link> :
+                      <Link to={`/login`}>Sign in</Link>}
+                  </span>
                 </li>
               </ul>
             </nav>
@@ -152,7 +148,9 @@ const Room = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className= {host.is_pro ?
+                    `property__avatar-wrapper  property__avatar-wrapper--pro user__avatar-wrapper` :
+                    `property__avatar-wrapper  user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
@@ -161,10 +159,7 @@ const Room = (props) => {
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
