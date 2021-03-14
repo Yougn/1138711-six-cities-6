@@ -21,9 +21,9 @@ const Room = (props) => {
 
   const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
     currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClick} = props;
-  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description} = room;
+  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description, is_favorite} = room;
 
-  const [isFavorite, setFavorite] = useState(true);
+  const [isFavorite, setFavorite] = useState(is_favorite);
 
   const handleToggle = () => {
     if (!isFavorite) {

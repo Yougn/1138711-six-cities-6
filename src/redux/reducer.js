@@ -4,7 +4,7 @@ import {user} from './user-reducer';
 import {data} from './data-reducer';
 
 export const NameSpace = {
-  DATA: `DATA`,
+  DATA: `data`,
   USER: `USER`,
   CITY: `CITY`
 };

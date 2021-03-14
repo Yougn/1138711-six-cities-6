@@ -1,26 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {propCard} from '../../../common/propTypes';
 import {getRatingLevel} from '../../../common/utils';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {favorite} from '../../../redux/api-actions';
+import {getFavoriteStatus} from '../../../redux/selectors';
 
 const NearRoom = (props) => {
 
-  const {nearOffer, onClick} = props;
+  const {nearOffer, onClick, currentStatus} = props;
   const {id, preview_image, is_premium, price, rating, title, type} = nearOffer;
 
-  const [isFavorite, setFavorite] = useState(true);
-
   const handleToggle = () => {
-    if (!isFavorite) {
-      setFavorite(true);
-    } else if (isFavorite) {
-      setFavorite(false);
+    let status;
+    if (!currentStatus) {
+      status = 1;
+    } else if (currentStatus) {
+      status = 0;
     }
-
-    onClick({id}, {status: Number(isFavorite)});
+    onClick({id}, {status});
   };
 
   return (
@@ -60,6 +59,14 @@ const NearRoom = (props) => {
 NearRoom.propTypes = {
   nearOffer: PropTypes.shape(propCard).isRequired,
   onClick: PropTypes.func.isRequired,
+  currentStatus: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const {nearOffer} = ownProps;
+  return {
+    currentStatus: getFavoriteStatus(state, nearOffer)
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -68,4 +75,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(NearRoom);
+export default connect(mapStateToProps, mapDispatchToProps)(NearRoom);

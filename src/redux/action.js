@@ -16,10 +16,14 @@ export const changeCityActionCreator = (cityName) => ({type: ActionType.CHANGE_C
 export const authorizeStatusActionCreator = (status, email) => ({type: ActionType.REQUIRED_AUTHORIZATION, status, email});
 
 export const loadRoomActionCreator = (room) => ({type: ActionType.LOAD_ROOM, room});
+
 export const loadHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_HOTELS, hotels});
 export const loadNearHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_NEAR_HOTELS, hotels});
+
 export const loadFavoriteHotelsActionCreator = (hotels) => ({type: ActionType.LOAD_FAVORITE_HOTELS, hotels});
 export const loadFavoriteHotelActionCreator = (hotel) => ({type: ActionType.LOAD_FAVORITE_HOTEL, hotel});
 export const deleteFavoriteHotelActionCreator = (hotel) => ({type: ActionType.DELETE_FAVORITE_HOTEL, hotel});
+
 export const loadCommentsActionCreator = (currentComments) => ({type: ActionType.LOAD_COMMENTS, currentComments});
+
 export const loadErrorActionCreator = (error) => ({type: ActionType.LOAD_ERROR, error});

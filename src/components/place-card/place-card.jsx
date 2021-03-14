@@ -5,19 +5,19 @@ import {getRatingLevel} from '../../common/utils';
 import {Link} from 'react-router-dom';
 import {favorite} from '../../redux/api-actions';
 import {connect} from 'react-redux';
-import {getAuthorizationStatus} from '../../redux/selectors';
+import {getAuthorizationStatus, getFavoriteStatus} from '../../redux/selectors';
 import {AuthorizationStatus} from '../../common/const';
 
 const PlaceCard = (props) => {
 
-  const {offer, onMouseEnterCardId, onClick, authorizationStatus} = props;
-  const {id, is_premium, price, rating, title, type, preview_image, is_favorite} = offer;
+  const {offer, onMouseEnterCardId, onClick, authorizationStatus, currentStatus} = props;
+  const {id, is_premium, price, rating, title, type, preview_image} = offer;
 
   const handleToggle = () => {
     let status;
-    if (!is_favorite) {
+    if (!currentStatus) {
       status = 1;
-    } else if (is_favorite) {
+    } else if (currentStatus) {
       status = 0;
     }
     onClick({id}, {status});
@@ -68,11 +68,14 @@ PlaceCard.propTypes = {
   onMouseEnterCardId: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  currentStatus: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const {offer} = ownProps;
   return {
-    authorizationStatus: getAuthorizationStatus(state)
+    authorizationStatus: getAuthorizationStatus(state),
+    currentStatus: getFavoriteStatus(state, offer)
   };
 };
 
