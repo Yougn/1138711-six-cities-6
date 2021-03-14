@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import ReviewsForm from '../reviews-form/reviews-form';
 import PropTypes from 'prop-types';
 import NearRoom from './near-room/near-room';
@@ -18,21 +18,24 @@ import {getAuthorizationStatus, getUserEmail} from '../../redux/selectors';
 
 
 const Room = (props) => {
-
   const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
-    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClick} = props;
-  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description, is_favorite} = room;
+    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClick, favoriteOffers} = props;
+  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description} = room;
 
-  const [isFavorite, setFavorite] = useState(is_favorite);
+  const changeCardStatus = () => {
+    const currentStatus = favoriteOffers.find((card) => card.id === room.id);
+    return !!currentStatus;
+  };
 
   const handleToggle = () => {
-    if (!isFavorite) {
-      setFavorite(true);
-    } else if (isFavorite) {
-      setFavorite(false);
+    let status;
+    if (!changeCardStatus()) {
+      status = 1;
+    } else if (changeCardStatus()) {
+      status = 0;
     }
 
-    onClick({id}, {status: Number(isFavorite)});
+    onClick({id}, {status});
   };
 
   if (error) {
@@ -213,7 +216,8 @@ Room.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -226,16 +230,17 @@ const mapStateToProps = (state) => {
     isCommentsLoaded: state.data.isCommentsLoaded,
     authorizationStatus: getAuthorizationStatus(state),
     email: getUserEmail(state),
-    error: state.data.error
+    error: state.data.error,
+    favoriteOffers: state.data.favoriteOffers
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClick(id, status) {
-    dispatch(favorite(id, status));
-  },
   onLoadRoom(id) {
     dispatch(fetchRoom(id));
+  },
+  onClick(id, status) {
+    dispatch(favorite(id, status));
   },
   onLoadNearRooms(id) {
     dispatch(fetchHotelsListNearby(id));
