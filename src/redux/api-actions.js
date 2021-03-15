@@ -36,6 +36,7 @@ export const fetchHotelsList = () => (dispatch, _getState, api) => (
 );
 
 export const fetchRoom = ({id}) => (dispatch, _getState, api) => (
+
   api.get(`/hotels/${id}`)
     .then(({data}) => {
       dispatch(loadRoomActionCreator(data));

@@ -10,17 +10,17 @@ import {AuthorizationStatus} from '../../common/const';
 
 const PlaceCard = (props) => {
 
-  const {offer, onMouseEnterCardId, onClick, authorizationStatus, currentStatus} = props;
+  const {offer, onMouseEnterCardId, onClickButton, authorizationStatus, currentStatus} = props;
   const {id, is_premium, price, rating, title, type, preview_image} = offer;
 
   const handleToggle = () => {
     let status;
     if (!currentStatus) {
       status = 1;
-    } else if (currentStatus) {
+    } else {
       status = 0;
     }
-    onClick({id}, {status});
+    onClickButton({id}, {status});
   };
 
   const handleCardMouseEnter = () => {
@@ -46,7 +46,12 @@ const PlaceCard = (props) => {
               <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
               <span className="visually-hidden">To bookmarks</span>
             </button> :
-            <Link to={`/login`}></Link>}
+            <Link to={`/login`}>
+              <button className="place-card__bookmark-button button" type="button" onClick={handleToggle} >
+                <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
+            </Link>}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -66,7 +71,7 @@ const PlaceCard = (props) => {
 PlaceCard.propTypes = {
   offer: PropTypes.shape(propCard).isRequired,
   onMouseEnterCardId: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClickButton: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentStatus: PropTypes.bool.isRequired
 };
@@ -80,7 +85,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClick(id, status) {
+  onClickButton(id, status) {
     dispatch(favorite(id, status));
   }
 });

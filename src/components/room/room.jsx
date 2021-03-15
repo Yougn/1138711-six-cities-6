@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import ReviewsForm from '../reviews-form/reviews-form';
 import PropTypes from 'prop-types';
 import NearRoom from './near-room/near-room';
@@ -18,21 +18,23 @@ import {getAuthorizationStatus, getUserEmail} from '../../redux/selectors';
 
 
 const Room = (props) => {
-
   const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
-    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClick} = props;
-  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description, is_favorite} = room;
+    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClickButton, favoriteOffers} = props;
+  const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description} = room;
 
-  const [isFavorite, setFavorite] = useState(is_favorite);
+  const getCardStatus = () => {
+    const currentStatus = favoriteOffers.find((card) => card.id === room.id);
+    return !!currentStatus;
+  };
 
   const handleToggle = () => {
-    if (!isFavorite) {
-      setFavorite(true);
-    } else if (isFavorite) {
-      setFavorite(false);
+    let status;
+    if (!getCardStatus()) {
+      status = 1;
+    } else {
+      status = 0;
     }
-
-    onClick({id}, {status: Number(isFavorite)});
+    onClickButton({id}, {status});
   };
 
   if (error) {
@@ -108,12 +110,19 @@ const Room = (props) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button" onClick={handleToggle}>
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <button className="property__bookmark-button button" type="button" onClick={handleToggle}>
+                    <svg className="property__bookmark-icon" width="31" height="33">
+                      <use xlinkHref="#icon-bookmark"></use></svg>
+                    <span className="visually-hidden">To bookmarks</span>
+                  </button> :
+                  <Link to={`/login`}>
+                    <button className="property__bookmark-button button" type="button" onClick={handleToggle}>
+                      <svg className="property__bookmark-icon" width="31" height="33">
+                        <use xlinkHref="#icon-bookmark"></use></svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
+                  </Link>}
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -213,7 +222,8 @@ Room.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClickButton: PropTypes.func.isRequired,
+  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -226,16 +236,17 @@ const mapStateToProps = (state) => {
     isCommentsLoaded: state.data.isCommentsLoaded,
     authorizationStatus: getAuthorizationStatus(state),
     email: getUserEmail(state),
-    error: state.data.error
+    error: state.data.error,
+    favoriteOffers: state.data.favoriteOffers
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClick(id, status) {
-    dispatch(favorite(id, status));
-  },
   onLoadRoom(id) {
     dispatch(fetchRoom(id));
+  },
+  onClickButton(id, status) {
+    dispatch(favorite(id, status));
   },
   onLoadNearRooms(id) {
     dispatch(fetchHotelsListNearby(id));

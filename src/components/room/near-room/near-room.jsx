@@ -5,21 +5,21 @@ import {getRatingLevel} from '../../../common/utils';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {favorite} from '../../../redux/api-actions';
-import {getFavoriteStatus} from '../../../redux/selectors';
+import {getAuthorizationStatus, getFavoriteStatus} from '../../../redux/selectors';
+import {AuthorizationStatus} from '../../../common/const';
 
 const NearRoom = (props) => {
-
-  const {nearOffer, onClick, currentStatus} = props;
+  const {nearOffer, onClickButton, currentStatus, authorizationStatus} = props;
   const {id, preview_image, is_premium, price, rating, title, type} = nearOffer;
 
   const handleToggle = () => {
     let status;
     if (!currentStatus) {
       status = 1;
-    } else if (currentStatus) {
+    } else {
       status = 0;
     }
-    onClick({id}, {status});
+    onClickButton({id}, {status});
   };
 
   return (
@@ -36,10 +36,17 @@ const NearRoom = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button" onClick={handleToggle} >
-            <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {authorizationStatus === AuthorizationStatus.AUTH ?
+            <button className="place-card__bookmark-button button" type="button" onClick={handleToggle} >
+              <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
+              <span className="visually-hidden">To bookmarks</span>
+            </button> :
+            <Link to={`/login`}>
+              <button className="place-card__bookmark-button button" type="button" onClick={handleToggle} >
+                <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
+            </Link>}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -58,19 +65,21 @@ const NearRoom = (props) => {
 
 NearRoom.propTypes = {
   nearOffer: PropTypes.shape(propCard).isRequired,
-  onClick: PropTypes.func.isRequired,
-  currentStatus: PropTypes.bool.isRequired
+  onClickButton: PropTypes.func.isRequired,
+  currentStatus: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
   const {nearOffer} = ownProps;
   return {
+    authorizationStatus: getAuthorizationStatus(state),
     currentStatus: getFavoriteStatus(state, nearOffer)
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClick(id, status) {
+  onClickButton(id, status) {
     dispatch(favorite(id, status));
   }
 });

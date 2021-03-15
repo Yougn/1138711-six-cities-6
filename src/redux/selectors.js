@@ -9,3 +9,4 @@ export const getFavoriteStatus = (state, offer) => {
   const currentFavorite = state[NameSpace.DATA].favoriteOffers.find((favorite) => favorite.id === offer.id);
   return !!currentFavorite;
 };
+
