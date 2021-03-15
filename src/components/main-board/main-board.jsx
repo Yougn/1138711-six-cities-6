@@ -31,6 +31,7 @@ const MainBoard = (props) => {
       <LoadingScreen />
     );
   }
+
   if (offers.length === 0) {
     return <Redirect to={`/mainEmpty`} />;
   }

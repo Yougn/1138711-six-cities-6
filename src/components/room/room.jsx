@@ -19,23 +19,22 @@ import {getAuthorizationStatus, getUserEmail} from '../../redux/selectors';
 
 const Room = (props) => {
   const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
-    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClick, favoriteOffers} = props;
+    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClickButton, favoriteOffers} = props;
   const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description} = room;
 
-  const changeCardStatus = () => {
+  const getCardStatus = () => {
     const currentStatus = favoriteOffers.find((card) => card.id === room.id);
     return !!currentStatus;
   };
 
   const handleToggle = () => {
     let status;
-    if (!changeCardStatus()) {
+    if (!getCardStatus()) {
       status = 1;
-    } else if (changeCardStatus()) {
+    } else {
       status = 0;
     }
-
-    onClick({id}, {status});
+    onClickButton({id}, {status});
   };
 
   if (error) {
@@ -111,12 +110,19 @@ const Room = (props) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button" onClick={handleToggle}>
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <button className="property__bookmark-button button" type="button" onClick={handleToggle}>
+                    <svg className="property__bookmark-icon" width="31" height="33">
+                      <use xlinkHref="#icon-bookmark"></use></svg>
+                    <span className="visually-hidden">To bookmarks</span>
+                  </button> :
+                  <Link to={`/login`}>
+                    <button className="property__bookmark-button button" type="button" onClick={handleToggle}>
+                      <svg className="property__bookmark-icon" width="31" height="33">
+                        <use xlinkHref="#icon-bookmark"></use></svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
+                  </Link>}
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -216,7 +222,7 @@ Room.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClickButton: PropTypes.func.isRequired,
   favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
 };
 
@@ -239,7 +245,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadRoom(id) {
     dispatch(fetchRoom(id));
   },
-  onClick(id, status) {
+  onClickButton(id, status) {
     dispatch(favorite(id, status));
   },
   onLoadNearRooms(id) {
