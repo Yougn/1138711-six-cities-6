@@ -19,7 +19,7 @@ import {getAuthorizationStatus, getUserEmail} from '../../redux/selectors';
 
 const Room = (props) => {
   const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
-    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClickButton, favoriteOffers} = props;
+    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClickFavoriteButton, favoriteOffers} = props;
   const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description} = room;
 
   const getCardStatus = () => {
@@ -34,7 +34,7 @@ const Room = (props) => {
     } else {
       status = 0;
     }
-    onClickButton({id}, {status});
+    onClickFavoriteButton({id}, {status});
   };
 
   if (error) {
@@ -222,7 +222,7 @@ Room.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,
-  onClickButton: PropTypes.func.isRequired,
+  onClickFavoriteButton: PropTypes.func.isRequired,
   favoriteOffers: PropTypes.arrayOf(PropTypes.shape(propCard)).isRequired,
 };
 
@@ -245,7 +245,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadRoom(id) {
     dispatch(fetchRoom(id));
   },
-  onClickButton(id, status) {
+  onClickFavoriteButton(id, status) {
     dispatch(favorite(id, status));
   },
   onLoadNearRooms(id) {

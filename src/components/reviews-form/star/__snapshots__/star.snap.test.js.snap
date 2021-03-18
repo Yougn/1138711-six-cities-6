@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should Stars render correctly 1`] = `
+<div>
+  <input
+    class="form__rating-input visually-hidden"
+    name="rating"
+    type="radio"
+    value=""
+  />
+  <label
+    class="reviews__rating-label form__rating-label"
+    title="perfect"
+  >
+    <svg
+      class="form__star-image"
+      height="33"
+      width="37"
+    >
+      <use
+        xlink:href="#icon-star"
+      />
+    </svg>
+  </label>
+</div>
+`;

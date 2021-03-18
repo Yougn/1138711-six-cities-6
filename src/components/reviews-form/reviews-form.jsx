@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Star from './star/star';
 import PropTypes from "prop-types";
-import {comment} from '../../redux/api-actions';
+import {currentComment} from '../../redux/api-actions';
 import {connect} from "react-redux";
 
 const STARS_COUNT = 5;
@@ -59,7 +59,7 @@ ReviewsForm.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(id, data) {
-    dispatch(comment(id, data));
+    dispatch(currentComment(id, data));
   }
 });
 
