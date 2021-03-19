@@ -10,6 +10,8 @@ import reducers from './redux/reducer';
 import {checkAuth} from './redux/api-actions';
 import {AuthorizationStatus} from './common/const';
 import {authorizeStatusActionCreator} from './redux/action';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from "./browser-history";
 
 
 const api = createAPI(
@@ -27,7 +29,9 @@ store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.querySelector(`#root`)
 );

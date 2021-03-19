@@ -9,7 +9,7 @@ import {getAuthorizationStatus, getFavoriteStatus} from '../../../redux/selector
 import {AuthorizationStatus} from '../../../common/const';
 
 const NearRoom = (props) => {
-  const {nearOffer, onClickButton, currentStatus, authorizationStatus} = props;
+  const {nearOffer, onClickFavoriteButton, currentStatus, authorizationStatus} = props;
   const {id, preview_image, is_premium, price, rating, title, type} = nearOffer;
 
   const handleToggle = () => {
@@ -19,7 +19,7 @@ const NearRoom = (props) => {
     } else {
       status = 0;
     }
-    onClickButton({id}, {status});
+    onClickFavoriteButton({id}, {status});
   };
 
   return (
@@ -37,7 +37,9 @@ const NearRoom = (props) => {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           {authorizationStatus === AuthorizationStatus.AUTH ?
-            <button className="place-card__bookmark-button button" type="button" onClick={handleToggle} >
+            <button className={currentStatus ?
+              `place-card__bookmark-button place-card__bookmark-button--active button` :
+              `place-card__bookmark-button  button`} type="button" onClick={handleToggle} >
               <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
               <span className="visually-hidden">To bookmarks</span>
             </button> :
@@ -65,7 +67,7 @@ const NearRoom = (props) => {
 
 NearRoom.propTypes = {
   nearOffer: PropTypes.shape(propCard).isRequired,
-  onClickButton: PropTypes.func.isRequired,
+  onClickFavoriteButton: PropTypes.func.isRequired,
   currentStatus: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
@@ -79,7 +81,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClickButton(id, status) {
+  onClickFavoriteButton(id, status) {
     dispatch(favorite(id, status));
   }
 });

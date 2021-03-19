@@ -10,8 +10,9 @@ import {AuthorizationStatus} from '../../common/const';
 
 const PlaceCard = (props) => {
 
-  const {offer, onMouseEnterCardId, onClickButton, authorizationStatus, currentStatus} = props;
+  const {offer, onMouseEnterCardId, onClickFavoriteButton, authorizationStatus, currentStatus} = props;
   const {id, is_premium, price, rating, title, type, preview_image} = offer;
+
 
   const handleToggle = () => {
     let status;
@@ -20,7 +21,7 @@ const PlaceCard = (props) => {
     } else {
       status = 0;
     }
-    onClickButton({id}, {status});
+    onClickFavoriteButton({id}, {status});
   };
 
   const handleCardMouseEnter = () => {
@@ -42,7 +43,9 @@ const PlaceCard = (props) => {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           {authorizationStatus === AuthorizationStatus.AUTH ?
-            <button className="place-card__bookmark-button button" type="button" onClick={handleToggle} >
+            <button className={currentStatus ?
+              `place-card__bookmark-button place-card__bookmark-button--active button` :
+              `place-card__bookmark-button  button`} type="button" onClick={handleToggle} >
               <svg className="place-card__bookmark-icon" width="18" height="19"><use xlinkHref="#icon-bookmark"></use></svg> :
               <span className="visually-hidden">To bookmarks</span>
             </button> :
@@ -71,7 +74,7 @@ const PlaceCard = (props) => {
 PlaceCard.propTypes = {
   offer: PropTypes.shape(propCard).isRequired,
   onMouseEnterCardId: PropTypes.func.isRequired,
-  onClickButton: PropTypes.func.isRequired,
+  onClickFavoriteButton: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentStatus: PropTypes.bool.isRequired
 };
@@ -85,7 +88,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClickButton(id, status) {
+  onClickFavoriteButton(id, status) {
     dispatch(favorite(id, status));
   }
 });

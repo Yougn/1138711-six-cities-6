@@ -74,7 +74,7 @@ export const commentsList = ({id}) => (dispatch, _getState, api) => (
 );
 
 // eslint-disable-next-line no-shadow
-export const comment = ({id}, {comment, rating}) => (dispatch, _getState, api) => (
+export const currentComment = ({id}, {comment, rating}) => (dispatch, _getState, api) => (
   api.post(`comments/${id}`, {comment, rating})
     .then(({data}) => {
       dispatch(loadCommentsActionCreator(data));
