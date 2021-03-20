@@ -39,3 +39,18 @@ export const sortCards = function (cardsArray, sortType) {
   }
   return cardsArray;
 };
+
+export const adaptToClient = (card) => {
+  const adaptedCard = Object.assign(
+      {},
+      card,
+      {
+        isPremium: card.is_premium,
+        previewImage: card.preview_image
+      }
+  );
+  delete adaptedCard.is_premium;
+  delete adaptedCard.preview_image;
+
+  return adaptedCard;
+};

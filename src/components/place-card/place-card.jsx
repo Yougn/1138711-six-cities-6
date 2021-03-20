@@ -11,7 +11,7 @@ import {AuthorizationStatus} from '../../common/const';
 const PlaceCard = (props) => {
 
   const {offer, onMouseEnterCardId, onClickFavoriteButton, authorizationStatus, currentStatus} = props;
-  const {id, is_premium, price, rating, title, type, preview_image} = offer;
+  const {id, isPremium, price, rating, title, type, previewImage} = offer;
 
 
   const handleToggle = () => {
@@ -30,10 +30,10 @@ const PlaceCard = (props) => {
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={handleCardMouseEnter} id={id}>
-      <div className="place-card__mark"><span>{is_premium && `Premium`}</span></div>
+      <div className="place-card__mark"><span>{isPremium && `Premium`}</span></div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={preview_image} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info" >
