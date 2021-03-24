@@ -34,7 +34,7 @@ const ReviewsForm = (props) => {
   const numbers = [...Array(STARS_COUNT)].map((_, i) => STARS_COUNT - i);
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} data-testid="formid">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 

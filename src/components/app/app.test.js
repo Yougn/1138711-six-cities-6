@@ -47,21 +47,5 @@ describe(`Test routing`, () => {
 
     expect(screen.getByText(`No places to stay available`)).toBeInTheDocument();
   });
-
-  // it(`Render 'PageNotFound' when user navigate to non-existent route`, () => {
-  //   const history = createMemoryHistory();
-  //   history.push(`/non-existent-route`);
-
-  //   render(
-  //       <redux.Provider store={mockStore({})}>
-  //         <Router history={history}>
-  //           <App />
-  //         </Router>
-  //       </redux.Provider>
-  //   );
-
-  //   expect(screen.getByText(`404. Page not found`)).toBeInTheDocument();
-  //   expect(screen.getByText(`Вернуться на главную`)).toBeInTheDocument();
-  // });
 });
 
