@@ -93,5 +93,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {PlaceCard};
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
 

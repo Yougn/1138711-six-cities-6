@@ -63,4 +63,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {ReviewsForm};
 export default connect(null, mapDispatchToProps)(ReviewsForm);

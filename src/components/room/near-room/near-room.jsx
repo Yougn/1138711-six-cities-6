@@ -86,4 +86,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {NearRoom};
 export default connect(mapStateToProps, mapDispatchToProps)(NearRoom);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
-import ReviewsForm from './reviews-form';
+import {ReviewsForm} from './reviews-form';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
@@ -25,21 +25,14 @@ test(`Should ReviewsForm render correctly and receive value`, () => {
   expect(screen.getByRole(`textbox`)).toHaveValue(`Hello, World!`);
 });
 
-// test(`Submits`, () => {
-//   const onSubmit = jest.fn();
-//   const store = mockStore({
-//     onSubmit
-//   });
+test(`Submits ReviewsForm`, () => {
+  const onSubmit = jest.fn();
 
-//   const {getByTestId} = render(
-//       <Provider store={store}>
-//         <Router history={history}>
-//           <ReviewsForm />
-//         </Router>
-//       </Provider>
-//   );
+  const {getByTestId} = render(
+      <ReviewsForm onSubmit={onSubmit} />
+  );
 
-//   fireEvent.submit(getByTestId(`formid`));
-//   expect(onSubmit).toHaveBeenCalled();
-// });
+  fireEvent.submit(getByTestId(`formid`));
+  expect(onSubmit).toHaveBeenCalled();
+});
 
