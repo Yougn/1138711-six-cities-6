@@ -7,7 +7,7 @@ import CitiesList from '../cities-list/cities-list';
 import Sort from '../sort/sort';
 import {propCard} from '../../common/propTypes';
 import {sortCards} from '../../common/utils';
-import {fetchHotelsList} from '../../redux/api-actions';
+import {fetchHotelsList, logout} from '../../redux/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {AuthorizationStatus} from '../../common/const';
 import {Link, Redirect} from 'react-router-dom';
@@ -15,7 +15,7 @@ import {getAuthorizationStatus, getCityName, getUserEmail} from '../../redux/sel
 
 
 const MainBoard = (props) => {
-  const {name, offers, isDataLoaded, onLoadData, authorizationStatus, email} = props;
+  const {name, offers, isDataLoaded, onLoadData, authorizationStatus, email, signOut} = props;
 
   const [sortType, setSortType] = useState(``);
   const [offer, setActiveOffer] = useState(null);
@@ -51,6 +51,12 @@ const MainBoard = (props) => {
 
   const cardsList = <CardsList offers={sortOffers} onMouseEnterCardId={onMouseEnterCardId} />;
 
+  const onSignOutButtonClick = (evt)=>{
+    evt.preventDefault();
+
+    signOut();
+  };
+
   return (
     <div className="page page--gray page--main">
 
@@ -62,6 +68,9 @@ const MainBoard = (props) => {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
+
+            {authorizationStatus === AuthorizationStatus.AUTH ? <button onClick={onSignOutButtonClick}>Sign out</button> : ``}
+
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
@@ -121,7 +130,8 @@ MainBoard.propTypes = {
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired
+  email: PropTypes.string.isRequired,
+  signOut: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -138,6 +148,9 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchHotelsList());
   },
+  signOut() {
+    dispatch(logout());
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainBoard);

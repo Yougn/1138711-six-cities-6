@@ -6,5 +6,3 @@ test(`Should LoadingScreen render correctly`, () => {
   const {container} = render(<LoadingScreen />);
   expect(container).toMatchSnapshot();
 });
-
-

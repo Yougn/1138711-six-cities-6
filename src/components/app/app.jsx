@@ -29,12 +29,11 @@ const App = () => {
         }}>
       </Route>
       <Route>
-        <PageNotFound path="/pageNotFound" />
+        <MainEmpty exact path="/mainEmpty" />
       </Route>
       <Route>
-        <MainEmpty path="/mainEmpty" />
+        <PageNotFound />
       </Route>
-
     </Switch>
   );
 };

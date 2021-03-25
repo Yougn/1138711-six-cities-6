@@ -10,7 +10,7 @@ import {AuthorizationStatus} from '../../../common/const';
 
 const NearRoom = (props) => {
   const {nearOffer, onClickFavoriteButton, currentStatus, authorizationStatus} = props;
-  const {id, preview_image, is_premium, price, rating, title, type} = nearOffer;
+  const {id, previewImage, isPremium, price, rating, title, type} = nearOffer;
 
   const handleToggle = () => {
     let status;
@@ -24,10 +24,10 @@ const NearRoom = (props) => {
 
   return (
     <article className="cities__place-card place-card">
-      <div className="place-card__mark"><span>{is_premium && `Premium`}</span></div>
+      <div className="place-card__mark"><span>{isPremium && `Premium`}</span></div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={preview_image} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info" >
@@ -86,4 +86,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {NearRoom};
 export default connect(mapStateToProps, mapDispatchToProps)(NearRoom);

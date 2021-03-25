@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should Stars render correctly 1`] = `
+exports[`Should RoomPhoto render correctly 1`] = `
 <div>
   <div
     class="property__image-wrapper"

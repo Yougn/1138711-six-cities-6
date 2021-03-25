@@ -37,8 +37,9 @@ const Room = (props) => {
     onClickFavoriteButton({id}, {status});
   };
 
+
   if (error) {
-    return <Redirect to={`/pageNotFound`} />;
+    return <Redirect to={``} />;
   }
 
   useEffect(() => {
