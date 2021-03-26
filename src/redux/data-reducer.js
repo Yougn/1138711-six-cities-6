@@ -8,6 +8,7 @@ const initialState = {
   nearOffers: [],
   isNearOffersLoaded: false,
   currentComments: [],
+  isFetching: false,
   isCommentsLoaded: false,
   favoriteOffers: [],
   isFavoriteLoaded: false,
@@ -67,6 +68,12 @@ const data = (state = initialState, action) => {
       return {
         ...state,
         error: true
+      };
+
+    case ActionType.TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching
       };
 
     default:

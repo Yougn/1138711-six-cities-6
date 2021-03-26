@@ -4,16 +4,12 @@ import {authorizeStatusActionCreator, loadHotelsActionCreator,
   loadNearHotelsActionCreator, loadCommentsActionCreator,
   loadFavoriteHotelsActionCreator, loadRoomActionCreator,
   loadFavoriteHotelActionCreator, loadErrorActionCreator,
-  deleteFavoriteHotelActionCreator} from "./action";
+  deleteFavoriteHotelActionCreator, toggleIsFetching} from "./action";
 
 export const checkAuth = () => async (dispatch, _getState, api) => {
-  try {
-    const response = await api.get(`/login`);
-    const {email} = response.data;
-    dispatch(authorizeStatusActionCreator(AuthorizationStatus.AUTH, email));
-  } catch (error) {
-    // dispatch(authorizeStatusActionCreator(AuthorizationStatus.NO_AUTH));
-  }
+  const response = await api.get(`/login`);
+  const {email} = response.data;
+  dispatch(authorizeStatusActionCreator(AuthorizationStatus.AUTH, email));
 };
 
 export const login = ({login: email, password}) => async (dispatch, _getState, api) => {
@@ -38,12 +34,8 @@ export const fetchHotelsList = () => async (dispatch, _getState, api) => {
 };
 
 export const fetchRoom = ({id}) => async (dispatch, _getState, api) => {
-  try {
-    const response = await api.get(`/hotels/${id}`);
-    dispatch(loadRoomActionCreator(response .data));
-  } catch (error) {
-    dispatch(loadErrorActionCreator(error));
-  }
+  const response = await api.get(`/hotels/${id}`);
+  dispatch(loadRoomActionCreator(response .data));
 };
 
 export const fetchHotelsListNearby = ({id}) => async (dispatch, _getState, api) => {
@@ -75,6 +67,13 @@ export const commentsList = ({id}) => async (dispatch, _getState, api) => {
 };
 
 export const currentComment = ({id}, {comment, rating}) => async (dispatch, _getState, api) => {
-  const response = await api.post(`comments/${id}`, {comment, rating});
-  dispatch(loadCommentsActionCreator(response.data));
+  try {
+    dispatch(toggleIsFetching(true));
+    const response = await api.post(`comments/${id}`, {comment, rating});
+    dispatch(toggleIsFetching(false));
+    dispatch(loadCommentsActionCreator(response.data));
+  } catch (error) {
+    dispatch(loadErrorActionCreator(error));
+    dispatch(toggleIsFetching(false));
+  }
 };

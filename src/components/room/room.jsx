@@ -11,10 +11,11 @@ import Map from '../map/map';
 import {fetchHotelsListNearby, commentsList, fetchRoom, favorite} from '../../redux/api-actions';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {Redirect} from 'react-router';
 import {AuthorizationStatus} from '../../common/const';
 import {Link} from 'react-router-dom';
 import {getAuthorizationStatus, getUserEmail} from '../../redux/selectors';
+import dayjs from 'dayjs';
+import styles from './room.module.css';
 
 
 const Room = (props) => {
@@ -37,11 +38,6 @@ const Room = (props) => {
     onClickFavoriteButton({id}, {status});
   };
 
-
-  if (error) {
-    return <Redirect to={``} />;
-  }
-
   useEffect(() => {
     if (!isRoomLoaded) {
       onLoadRoom({id});
@@ -60,9 +56,14 @@ const Room = (props) => {
     );
   }
 
+  const sortCardUp = (cardA, cardB) => {
+    return dayjs(cardB.date).diff(dayjs(cardA.date));
+  };
+
   const roomsPhotos = images.map((image, index) => <RoomPhoto image={image} key={index} />);
   const properties = goods.map((good, index) => <PropertyInside good={good} key={index} />);
-  const reviews = currentComments.map((currentComment) => <Comment key={currentComment.id} currentComment={currentComment} />);
+  const sortedDateReviews = currentComments.sort(sortCardUp).slice(0, 10);
+  const reviews = sortedDateReviews.map((currentComment) => <Comment key={currentComment.id} currentComment={currentComment} />);
   const nearRooms = nearOffers.map((nearOffer) => <NearRoom key={nearOffer.id} nearOffer={nearOffer} />);
 
   return (
@@ -180,6 +181,8 @@ const Room = (props) => {
                   {reviews}
 
                 </ul>
+
+                { error && <div className={styles.error} ><p>An error has occurred.Please try later</p></div>}
 
                 {authorizationStatus === AuthorizationStatus.AUTH ?
                   <ReviewsForm id={id} /> :

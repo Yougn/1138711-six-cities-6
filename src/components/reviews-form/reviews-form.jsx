@@ -4,21 +4,34 @@ import PropTypes from "prop-types";
 import {currentComment} from '../../redux/api-actions';
 import {connect} from "react-redux";
 
+
 const STARS_COUNT = 5;
+const MIN_LENGTH = 50;
+const MAX_LENGTH = 300;
 
 const ReviewsForm = (props) => {
-  const {id, onSubmit} = props;
+  const {id, onSubmit, isFetching} = props;
 
-  const [userReview, setUserReview] = useState(``);
-  const handleTextareaChange = (evt) => {
-    const text = evt.target.value;
-    setUserReview(text);
-  };
+  const [disabled, setDisabled] = useState(false);
 
   const [userChoise, setUserChoise] = useState(``);
   const handeleInputChange = (evt) => {
     const choiseId = evt.target.id;
+
     setUserChoise(choiseId);
+  };
+
+  const [userReview, setUserReview] = useState(``);
+  const handleTextareaChange = (evt) => {
+    const text = evt.target.value;
+
+    if (userChoise === `` || userReview.length < MIN_LENGTH || userReview.length > MAX_LENGTH) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+
+    setUserReview(text);
   };
 
   const handleSubmit = (evt) => {
@@ -28,7 +41,10 @@ const ReviewsForm = (props) => {
       comment: userReview,
       rating: userChoise,
     });
+
+    setUserChoise(``);
     setUserReview(``);
+    setDisabled(false);
   };
 
   const numbers = [...Array(STARS_COUNT)].map((_, i) => STARS_COUNT - i);
@@ -46,7 +62,7 @@ const ReviewsForm = (props) => {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isFetching || disabled}>Submit</button>
       </div>
     </form>
   );
@@ -54,14 +70,22 @@ const ReviewsForm = (props) => {
 
 ReviewsForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  id: PropTypes.string
+  id: PropTypes.string,
+  isFetching: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isFetching: state.data.isFetching,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(id, data) {
-    dispatch(currentComment(id, data));
+    dispatch(currentComment(id, data)
+    );
   }
 });
 
 export {ReviewsForm};
-export default connect(null, mapDispatchToProps)(ReviewsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);

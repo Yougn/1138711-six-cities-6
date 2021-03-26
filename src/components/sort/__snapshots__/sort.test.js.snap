@@ -10,7 +10,7 @@ exports[`Should SortOffers render correctly 1`] = `
     <span
       class="places__sorting-caption"
     >
-      Sort by
+      Sort by  
     </span>
     <span
       class="places__sorting-type"

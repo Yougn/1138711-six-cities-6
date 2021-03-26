@@ -105,7 +105,7 @@ const MainBoard = (props) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{sortOffers.length} places to stay in {name}</b>
 
-              <Sort handleSortListClick={handleSortListClick} />
+              <Sort handleSortListClick={handleSortListClick} sortType={sortType} />
 
               {cardsList}
 
