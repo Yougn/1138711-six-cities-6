@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 const SortOffers = (props) => {
 
-  const {handleSortListClick} = props;
+  // eslint-disable-next-line react/prop-types
+  const {handleSortListClick, sortType} = props;
 
   const [sortChoise, setUserChoise] = useState(false);
 
@@ -15,11 +16,23 @@ const SortOffers = (props) => {
     }
   };
 
+  const setSortValue = () => {
+    switch (sortType) {
+      case 1:
+        return `Price: low to high`;
+      case 2:
+        return `Price: high to low`;
+      case 3:
+        return `Top rated first`;
+    }
+    return `Popular`;
+  };
+
   return (
     <form className="places__sorting" action="#" method="get" onClick={setFlag}>
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by  </span>
       <span className="places__sorting-type" tabIndex="0">
-        Popular
+        {setSortValue()}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>

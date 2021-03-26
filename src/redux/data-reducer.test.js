@@ -48,6 +48,7 @@ describe(`Reducer 'data' should work correctly`, () => {
         isCommentsLoaded: false,
         favoriteOffers: [],
         isFavoriteLoaded: false,
+        isFetching: false,
         error: false});
   });
 
@@ -198,8 +199,8 @@ describe(`Async operation work correctly`, () => {
 
     return commentLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.LOAD_COMMENTS,
           currentComments: [{fake: true}],
         });

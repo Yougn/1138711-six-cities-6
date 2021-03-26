@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {getRatingLevel} from '../../../common/utils';
 import {propReview} from '../../../common/propTypes';
+import dayjs from 'dayjs';
+
 
 const Comment = (props) => {
 
@@ -28,7 +30,7 @@ const Comment = (props) => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{dayjs(date).format(`MMM YYYY`)}</time>
       </div>
     </li>
   );

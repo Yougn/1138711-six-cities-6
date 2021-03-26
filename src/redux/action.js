@@ -9,6 +9,7 @@ export const ActionType = {
   LOAD_FAVORITE_HOTEL: `data/loadFavoriteHotel`,
   DELETE_FAVORITE_HOTEL: `data/deleteFavoriteHotel`,
   LOAD_ERROR: `data/loadError`,
+  TOGGLE_IS_FETCHING: `fata/toggleIsFetching`
 };
 
 export const changeCityActionCreator = (cityName) => ({type: ActionType.CHANGE_CITY, cityName});
@@ -27,3 +28,6 @@ export const deleteFavoriteHotelActionCreator = (hotel) => ({type: ActionType.DE
 export const loadCommentsActionCreator = (currentComments) => ({type: ActionType.LOAD_COMMENTS, currentComments});
 
 export const loadErrorActionCreator = (error) => ({type: ActionType.LOAD_ERROR, error});
+
+export const toggleIsFetching = (isFetching) => ({type: ActionType.TOGGLE_IS_FETCHING, isFetching});
+

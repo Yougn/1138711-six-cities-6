@@ -14,5 +14,4 @@ describe(`Reducers work correctly`, () => {
     expect(city(state, changeCityActionCreator))
       .toEqual({name: `Berlin`});
   });
-
 });
