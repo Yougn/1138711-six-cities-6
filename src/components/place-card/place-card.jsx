@@ -8,11 +8,11 @@ import {connect} from 'react-redux';
 import {getAuthorizationStatus, getFavoriteStatus} from '../../redux/selectors';
 import {AuthorizationStatus} from '../../common/const';
 
+
 const PlaceCard = (props) => {
 
   const {offer, onMouseEnterCardId, onClickFavoriteButton, authorizationStatus, currentStatus} = props;
   const {id, isPremium, price, rating, title, type, previewImage} = offer;
-
 
   const handleToggle = () => {
     let status;

@@ -15,6 +15,7 @@ import {getAuthorizationStatus, getCityName, getUserEmail} from '../../redux/sel
 
 
 const MainBoard = (props) => {
+
   const {name, offers, isDataLoaded, onLoadData, authorizationStatus, email, signOut} = props;
 
   const [sortType, setSortType] = useState(``);

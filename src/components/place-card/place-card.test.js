@@ -4,7 +4,6 @@ import {PlaceCard} from './place-card';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 
-
 test(`Should PlaceCard render correctly`, () => {
   const offer = {
     id: 1,
@@ -23,5 +22,4 @@ test(`Should PlaceCard render correctly`, () => {
       </Router>);
   expect(container).toMatchSnapshot();
 });
-
 

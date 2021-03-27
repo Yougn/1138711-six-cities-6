@@ -3,6 +3,7 @@ import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 import {propCard} from '../../common/propTypes';
 
+
 import 'leaflet/dist/leaflet.css';
 
 const Map = ({elements, offer}) => {

@@ -3,6 +3,7 @@ import {city} from './city-reducer';
 import {user} from './user-reducer';
 import {data} from './data-reducer';
 
+
 export const NameSpace = {
   DATA: `data`,
   USER: `USER`,

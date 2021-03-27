@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import FavoriteCard from '../favorite-card/favorite-card';
 import {propCard} from '../../../common/propTypes';
 
+
 const FavoriteLocation = (props) => {
+
   const {name, favoriteOffers} = props;
 
   const cards = favoriteOffers.map((offer) => <FavoriteCard key={offer.id} offer={offer} />);

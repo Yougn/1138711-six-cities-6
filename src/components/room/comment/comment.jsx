@@ -30,7 +30,7 @@ const Comment = (props) => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{dayjs(date).format(`MMM YYYY`)}</time>
+        <time className="reviews__time" dateTime="{dayjs(date).format(`MMM YYYY`)}">{dayjs(date).format(`MMM YYYY`)}</time>
       </div>
     </li>
   );

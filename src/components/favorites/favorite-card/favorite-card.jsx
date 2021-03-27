@@ -4,6 +4,7 @@ import {propCard} from '../../../common/propTypes';
 import {getRatingLevel} from '../../../common/utils';
 import {Link} from 'react-router-dom';
 
+
 const FavoriteCard = (props) => {
 
   const {offer} = props;

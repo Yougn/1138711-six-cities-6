@@ -4,7 +4,6 @@ import FavoriteCard from './favorite-card';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 
-
 test(`Should FavoriteCard render correctly`, () => {
   const offer = {
     id: 1,

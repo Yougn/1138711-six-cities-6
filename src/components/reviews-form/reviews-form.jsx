@@ -6,8 +6,11 @@ import {connect} from "react-redux";
 
 
 const STARS_COUNT = 5;
-const MIN_LENGTH = 50;
-const MAX_LENGTH = 300;
+
+const CountLetters = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 300,
+};
 
 const ReviewsForm = (props) => {
   const {id, onSubmit, isFetching} = props;
@@ -25,7 +28,7 @@ const ReviewsForm = (props) => {
   const handleTextareaChange = (evt) => {
     const text = evt.target.value;
 
-    if (userChoise === `` || userReview.length < MIN_LENGTH || userReview.length > MAX_LENGTH) {
+    if (userChoise === `` || userReview.length < CountLetters.MIN_LENGTH || userReview.length > CountLetters.MAX_LENGTH) {
       setDisabled(true);
     } else {
       setDisabled(false);

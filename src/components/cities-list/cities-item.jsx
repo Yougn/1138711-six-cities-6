@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const CitiesItem = (props) => {
+
   const {name, city, changeCityName} = props;
 
   const choseCityName = (evt) => {

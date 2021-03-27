@@ -9,7 +9,6 @@ import {
   loadErrorActionCreator
 } from './action';
 
-
 describe(`Action creators work correctly`, () => {
   it(`Action creator for changeCityActionCreator returns correct action`, () => {
     const expectedAction = {

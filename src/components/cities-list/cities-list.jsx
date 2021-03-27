@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {changeCityActionCreator} from '../../redux/action';
-import {cities} from '../../common/utils';
+import {cities} from '../../common/const';
 import CitiesItem from './cities-item';
+
 
 const CitiesList = (props) => {
 

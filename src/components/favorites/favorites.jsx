@@ -9,7 +9,9 @@ import {Link} from 'react-router-dom';
 import {AuthorizationStatus} from '../../common/const';
 import {getAuthorizationStatus, getUserEmail} from '../../redux/selectors';
 
+
 const Favorites = (props) => {
+
   const {favoriteOffers, onLoadFavorite, isFavoriteLoaded, authorizationStatus, email} = props;
 
   useEffect(() => {

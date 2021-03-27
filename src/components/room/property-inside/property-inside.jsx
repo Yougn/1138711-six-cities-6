@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const PropertyInside = (props) => {
+
   const {good} = props;
 
   return (

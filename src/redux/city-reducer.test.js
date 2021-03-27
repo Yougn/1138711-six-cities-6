@@ -1,7 +1,6 @@
 import {changeCityActionCreator} from './action';
 import {city} from './city-reducer';
 
-
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(city(undefined, {}))

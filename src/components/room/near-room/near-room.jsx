@@ -8,7 +8,9 @@ import {favorite} from '../../../redux/api-actions';
 import {getAuthorizationStatus, getFavoriteStatus} from '../../../redux/selectors';
 import {AuthorizationStatus} from '../../../common/const';
 
+
 const NearRoom = (props) => {
+
   const {nearOffer, onClickFavoriteButton, currentStatus, authorizationStatus} = props;
   const {id, previewImage, isPremium, price, rating, title, type} = nearOffer;
 

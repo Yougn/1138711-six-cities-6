@@ -97,7 +97,6 @@ MainEmpty.propTypes = {
   email: PropTypes.string.isRequired
 };
 
-
 const mapStateToProps = (state) => {
   return {
     authorizationStatus: getAuthorizationStatus(state),

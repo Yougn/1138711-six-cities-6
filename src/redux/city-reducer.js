@@ -1,6 +1,7 @@
 
 import {ActionType} from './action';
 
+
 const initialState = {
   name: `Paris`
 };

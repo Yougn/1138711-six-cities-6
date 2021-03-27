@@ -28,6 +28,5 @@ export const deleteFavoriteHotelActionCreator = (hotel) => ({type: ActionType.DE
 export const loadCommentsActionCreator = (currentComments) => ({type: ActionType.LOAD_COMMENTS, currentComments});
 
 export const loadErrorActionCreator = (error) => ({type: ActionType.LOAD_ERROR, error});
-
 export const toggleIsFetching = (isFetching) => ({type: ActionType.TOGGLE_IS_FETCHING, isFetching});
 

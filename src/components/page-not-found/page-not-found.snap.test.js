@@ -4,7 +4,6 @@ import PageNotFound from './page-not-found';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 
-
 it(`PageNotFound should render correctly`, () => {
   const history = createMemoryHistory();
   const {getByText} = render(

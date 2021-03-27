@@ -1,5 +1,6 @@
 import {ActionType} from './action';
 
+
 const initialState = {
   offers: [],
   isDataLoaded: false,

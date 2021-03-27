@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const RoomPhoto = (props) => {
+
   const {image} = props;
 
   return (

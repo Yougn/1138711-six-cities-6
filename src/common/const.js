@@ -6,3 +6,5 @@ export const AuthorizationStatus = {
 export const AppRoute = {
   LOGIN: `/login`
 };
+
+export const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];

@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {TypeSorting} from '../../common/utils';
+
 
 const SortOffers = (props) => {
-
   // eslint-disable-next-line react/prop-types
   const {handleSortListClick, sortType} = props;
 
@@ -18,11 +19,11 @@ const SortOffers = (props) => {
 
   const setSortValue = () => {
     switch (sortType) {
-      case 1:
+      case TypeSorting.PRICE_LOW:
         return `Price: low to high`;
-      case 2:
+      case TypeSorting.PRICE_HIGH:
         return `Price: high to low`;
-      case 3:
+      case TypeSorting.TOP_RATING:
         return `Top rated first`;
     }
     return `Popular`;

@@ -19,8 +19,11 @@ import styles from './room.module.css';
 
 
 const Room = (props) => {
-  const {id, room, onLoadRoom, isRoomLoaded, nearOffers, onLoadNearRooms, isNearOffersLoaded,
-    currentComments, onLoadComments, isCommentsLoaded, error, authorizationStatus, email, onClickFavoriteButton, favoriteOffers} = props;
+
+  const {id, room, onLoadRoom, isRoomLoaded, nearOffers,
+    onLoadNearRooms, isNearOffersLoaded, currentComments, onLoadComments, isCommentsLoaded,
+    error, authorizationStatus, email, onClickFavoriteButton, favoriteOffers} = props;
+
   const {images, price, rating, title, type, bedrooms, maxAdults, goods, host, isPremium, description} = room;
 
   const getCardStatus = () => {
