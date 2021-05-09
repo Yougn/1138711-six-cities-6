@@ -1,6 +1,6 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
-* Студент: [Евгений Шестаков](https://up.htmlacademy.ru/react/6/user/1138711).
+* Разработчик: [Евгений Шестаков](https://up.htmlacademy.ru/react/6/user/1138711).
 * Наставник: [Алексей Балесный](https://htmlacademy.ru/profile/id221665).
 
 ---
